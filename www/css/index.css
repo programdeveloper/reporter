@@ -4,3 +4,21 @@
 .ui-page-theme-a .ui-btn.ui-btn-active{
     color: transparent;
 }
+.ui-btn{
+    border: 0;
+}
+
+/* stack all grids below 40em (640px) */
+@media all and (max-width: 35em) {
+    .parameters .ui-block-a{
+        width: 75%;
+        float: left;
+    }
+    .parameters .ui-block-b{
+        width: 25%;
+        float: left;
+    }
+    .parameters{
+        clear: both;
+    }
+}
