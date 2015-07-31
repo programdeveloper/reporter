@@ -16,5 +16,6 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
        console.log("program started");
+        console.log(StatusBar);
     }
 };
