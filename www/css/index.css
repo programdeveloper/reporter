@@ -1,3 +1,6 @@
 .ui-header .ui-title{
     margin: 0;
 }
+.ui-page-theme-a .ui-btn.ui-btn-active{
+    color: transparent;
+}
