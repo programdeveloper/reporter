@@ -18,7 +18,7 @@ var app = {
        console.log("program started");
         
        if (cordova.platformId == 'android') {
-            StatusBar.backgroundColorByHexString("#333");
+            StatusBar.backgroundColorByHexString("#fff");
         }
     }
 };
