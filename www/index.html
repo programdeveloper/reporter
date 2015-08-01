@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <link rel="stylesheet" href="css/themes/reporter.min.css" />
     <link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />
-    <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/index.css" /> 
     
 </head>
@@ -25,12 +25,12 @@
 
     </div> 
 
-    <!-- start second page -->
+    <!-- start parameters page -->
 
     <div data-role="page" id="settings">
       <div data-role="header">
         <h1>პარამეტრები</h1>
-        <a href="#home" class="ui-btn-right" data-transition="slide" data-direction="reverse" data-icon="back" data-iconpos="notext" data-corners="false" data-shadow="false"></a>
+        <a href="#home" data-transition="slide" data-direction="reverse" data-icon="back" data-iconpos="notext" data-corners="false" data-shadow="false"></a>
       </div>
 
       <div data-role="main" class="ui-content">
@@ -48,7 +48,7 @@
                 <a href="#profile" data-role="button" data-icon="user" data-corners="false" data-shadow="false">პროფილის რედაქტირება</a>
             </div><!-- /grid-a -->
             <div class="parameters">
-                <a href="#profile" data-role="button" data-icon="video" data-corners="false" data-shadow="false">რეპორტიორი</a>
+                <a href="#reporter" data-role="button" data-icon="video" data-corners="false" data-shadow="false">რეპორტიორი</a>
             </div><!-- /grid-a -->
                             
           </form>
@@ -56,17 +56,45 @@
       </div>
 
     </div> 
-    <!-- start third page -->
+    <!-- start profile page -->
     <div data-role="page" id="profile">
       <div data-role="header">
           <a href="#settings" data-transition="slide" data-icon="gear" data-iconpos="notext" data-corners="false" data-shadow="false"></a>
           <h1> პროფილი </h1>
-          <a href="#home" data-icon="home" data-iconpos="notext" data-corners="false" data-shadow="false"></a>
-          <a href="#home" data-icon="check" data-iconpos="notext" data-corners="false" data-shadow="false"></a>
+          <a href="#home" class="ui-btn-right" style="margin-right: 30px;" data-icon="home" data-iconpos="notext" data-corners="false" data-shadow="false"></a>
+          <a onclick="SaveInfo()" class="ui-btn-right" data-icon="check" data-iconpos="notext" data-corners="false" data-shadow="false"></a>
       </div>
 
       <div data-role="main" class="ui-content">
+          <div class="ui-field-contain">
+            <label for="fullname">სახელი და გვარი:</label>
+            <input type="text" name="fullname" id="fullname" > <br>      
+            <label for="bday">საკონტაქტო ინფორმაცია </label>
+            <input type="number" name="phone" id="phone" placeholder="ტელეფონის ნომერი"/><br>
+            <input type="email" name="email" id="email" placeholder="ელ-ფოსტა">
+          </div>
         
+      </div>
+
+    </div> 
+    <!-- start reporter page -->
+    <div data-role="page" id="reporter">
+      <div data-role="header">
+          <a href="#settings" data-transition="slide" data-icon="gear" data-iconpos="notext" data-corners="false" data-shadow="false"></a>
+          <h1> რეპორტიორი </h1>
+          <a href="#home" class="ui-btn-right" data-icon="home" data-iconpos="notext" data-corners="false" data-shadow="false"></a>
+      </div>
+
+      <div data-role="main" class="ui-content">
+        <div class="ui-grid-solo">
+            <div class="ui-block-a text-center">
+              <img src="img/stunet.png">
+            </div>
+        </div>
+        <h3 class="ui-bar ui-bar-a ui-corner-all text-center">რეპორტიორი</h3>
+        <div class="ui-body ui-body-a ui-corner-all">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse accumsan blandit fermentum. Pellentesque cursus mauris purus, auctor commodo mi ullamcorper nec. Donec semper mattis eros, nec condimentum ante sollicitudin quis. Etiam orci sem, porttitor ut tellus nec, blandit posuere urna. Proin a arcu non lacus pretium faucibus. Aliquam sed est porttitor, ullamcorper urna nec, vehicula lorem. Cras porttitor est lorem, non venenatis diam convallis congue.</p>
+        </div>
       </div>
 
     </div> 

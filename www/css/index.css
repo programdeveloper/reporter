@@ -7,9 +7,12 @@
 .ui-btn{
     border: 0;
 }
+.text-center{
+    text-align: center;
+}
 
 /* stack all grids below 40em (640px) */
-@media all and (max-width: 35em) {
+@media all and (max-width: 65em) {
     .parameters .ui-block-a{
         width: 75%;
         float: left;
@@ -20,5 +23,6 @@
     }
     .parameters{
         clear: both;
+        height: 50px;
     }
 }
