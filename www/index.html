@@ -61,8 +61,8 @@
       <div data-role="header">
           <a href="#settings" data-transition="slide" data-icon="gear" data-iconpos="notext" data-corners="false" data-shadow="false"></a>
           <h1> პროფილი </h1>
-          <a href="#home" class="ui-btn-right" style="margin-right: 30px;" data-icon="home" data-iconpos="notext" data-corners="false" data-shadow="false"></a>
-          <a onclick="SaveInfo()" class="ui-btn-right" data-icon="check" data-iconpos="notext" data-corners="false" data-shadow="false"></a>
+          <a href="#home" data-icon="home" data-iconpos="notext" data-corners="false" data-shadow="false"></a>
+          
       </div>
 
       <div data-role="main" class="ui-content">
@@ -73,6 +73,7 @@
             <input type="number" name="phone" id="phone" placeholder="ტელეფონის ნომერი"/><br>
             <input type="email" name="email" id="email" placeholder="ელ-ფოსტა">
           </div>
+            <a onclick="SaveInfo()" data-role="button" data-icon="check" data-iconpos="left" data-corners="true" data-shadow="true">Save</a>
         
       </div>
 
