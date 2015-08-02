@@ -11,6 +11,16 @@
     text-align: center;
 }
 
+.record{
+    background: #E7464B;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+}
+
 /* stack all grids below 40em (640px) */
 @media all and (max-width: 65em) {
     .parameters .ui-block-a{
