@@ -36,5 +36,6 @@ function SaveInfo(){
     localStorage.setItem("fullname",fullname);
     localStorage.setItem("phone",phone);
     localStorage.setItem("email",email);
-     console.log(localStorage);
+    
+    alert("Your Personal Info Saved Successfully");
 }
