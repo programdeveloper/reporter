@@ -22,7 +22,7 @@
     <preference name="auto-hide-splash-screen" value="true" />
     <preference name="disable-cursor" value="false" />
     <preference name="android-minSdkVersion" value="7" />
-    <preference name='phonegap-version' value='cli-5.1.1' />
+    <preference name='phonegap-version' value='cli-5.2.0' />
     <preference name="android-installLocation" value="auto" />
     <gap:plugin name="org.apache.cordova.battery-status" />
     <gap:plugin name="org.apache.cordova.camera" />
