@@ -26,7 +26,7 @@ var app = {
         }
 
         if (cordova.platformId == 'android') {
-            StatusBar.backgroundColorByHexString("#fff");
+            StatusBar.backgroundColorByHexString("#fffk");
         }
         
     }
@@ -69,6 +69,23 @@ function sendReport(){
     localStorage.setItem("fullname",fullname);
     localStorage.setItem("phone",phone);
     localStorage.setItem("email",email);
+
+
+    var ft = new FileTransfer(),
+    name = 'test';
+    console.log(path);
+    ft.upload(path,
+        "http://stunet.ge/admin/reporter/uploadfile",
+        function(result) {
+            console.log('Upload success: ' + result.responseCode);
+            console.log(result.bytesSent + ' bytes sent');
+            console.log(result.response);
+        },
+        function(error) {
+            console.log('Error uploading file ' + path + ': ' + error.code);
+        },
+        { fileName: name, mimeType: 'video/mp4',chunkedMode: true });
+
 
 
 }
