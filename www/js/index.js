@@ -28,6 +28,11 @@ var app = {
 
     
 };
+
+$('.record').click(function(){
+    alert('capturing');
+});
+
 function SaveInfo(){
     var fullname = $("#fullname").val();
     var phone  = $("#phone").val();
