@@ -24,13 +24,28 @@ var app = {
         if(!(localStorage.getItem("email") === null)){
             $("#email").val(localStorage.getItem("email"));                   
         }
+        
     }
 
     
 };
 
 $('.record').click(function(){
-    alert('capturing');
+    // capture callback
+    var captureSuccess = function(mediaFiles) {
+        var i, path, len;
+        for (i = 0, len = mediaFiles.length; i < len; i += 1) {
+            path = mediaFiles[i].fullPath;
+            // do something interesting with the file
+            console.log(cordova.file.dataDirectory);
+        }
+    };
+
+   
+
+    var options = { limit: 1, quality: 1 };
+    navigator.device.capture.captureVideo(captureSuccess, null, options);
+
 });
 
 function SaveInfo(){
@@ -42,5 +57,11 @@ function SaveInfo(){
     localStorage.setItem("phone",phone);
     localStorage.setItem("email",email);
     
-    alert("Your Personal Info Saved Successfully");
+
+    navigator.notification.alert(
+        'თქვენი მონაცემები წარმატებით შეინახა',  // message
+        null,         // callback
+        'შეტყობინება',            // title
+        'დახურვა'                  // buttonName
+    );
 }
