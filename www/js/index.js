@@ -41,8 +41,6 @@ $('.record').click(function(){
         }
     };
 
-   
-
     var options = { limit: 1, quality: 1 };
     navigator.device.capture.captureVideo(captureSuccess, null, options);
 
