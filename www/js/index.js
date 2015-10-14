@@ -26,8 +26,6 @@ var app = {
         }
         
     }
-
-    
 };
 
 $('.record').click(function(){
@@ -37,7 +35,7 @@ $('.record').click(function(){
         for (i = 0, len = mediaFiles.length; i < len; i += 1) {
             path = mediaFiles[i].fullPath;
             // do something interesting with the file
-            console.log(cordova.file.dataDirectory);
+            alert(cordova.file.dataDirectory);
         }
     };
 
