@@ -24,6 +24,10 @@ var app = {
         if(!(localStorage.getItem("email") === null)){
             $("#email").val(localStorage.getItem("email"));                   
         }
+
+        if (cordova.platformId == 'android') {
+            StatusBar.backgroundColorByHexString("#fff");
+        }
         
     }
 };
@@ -36,6 +40,16 @@ $('.record').click(function(){
             path = mediaFiles[i].fullPath;
             
             $("#playVideo").attr('src',path);
+            if(!(localStorage.getItem("fullname") === null )){
+                $('#reporter').val(localStorage.getItem("fullname"));
+            }
+            if(!(localStorage.getItem("phone") === null )){
+                $('#reportPhone').val(localStorage.getItem("phone"));
+            }
+            if(!(localStorage.getItem("email") === null)){
+               $('#reportEmail').val(localStorage.getItem("email"));                   
+            }
+
             $.mobile.changePage('#sendReport',{reverse:false,transition: "slide"});
         }
     };
@@ -44,6 +58,20 @@ $('.record').click(function(){
     navigator.device.capture.captureVideo(captureSuccess, null, options);
 
 });
+
+function sendReport(){
+    var fullname = $("#reporter").val();
+    var phone  = $("#reportPhone").val();
+    var email  = $("#reportEmail").val();
+    var desc  = $('#reportdesc').val();
+    var title = $('#reportTitle').val();
+
+    localStorage.setItem("fullname",fullname);
+    localStorage.setItem("phone",phone);
+    localStorage.setItem("email",email);
+
+
+}
 
 function SaveInfo(){
     var fullname = $("#fullname").val();

@@ -85,18 +85,35 @@
     </div> 
      <!-- start sendreport page -->
 
+     
+
     <div data-role="page" id="sendReport">
       <div data-role="header">
           <a href="#settings" data-transition="slide" data-icon="gear" data-iconpos="notext" data-corners="false" data-shadow="false"></a>
           <h1> რეპორტაჟის გაგზავნა </h1>
-          <a href="#home" data-icon="home" data-iconpos="notext" data-corners="false" data-shadow="false"></a>
+          <a href="#home" class="ui-btn-right" style="margin-right:30px;" data-icon="home" data-iconpos="notext" data-corners="false" data-shadow="false"></a>
+          <a onclick="sendReport()" class="ui-btn-right" data-icon="carat-d" data-iconpos="notext" data-corners="false" data-shadow="false"></a>
       </div>
 
       <div data-role="main" class="ui-content">
         <video>
-          <source id="playVideo" src="" type="video/mp4">
+          <source id="playVideo" src="file:/storage/emulated/0/DCIM/Camera/VID_20151014_140102.mp4" type="video/mp4">
           Your browser does not support HTML5 video.
         </video>
+        <div class="ui-field-contain">
+            <label for="reporter">რეპორტიორი:</label>
+            <input type="text" id="reporter" > <br>  
+
+            <label for="reportTitle">რეპორტაჟის დასახელება:</label>
+            <input type="text" id="reportTitle" placeholder="ჩაწერეთ რეპორტაჟის დასახელება" > <br>  
+
+            <label for="bday">საკონტაქტო ინფორმაცია </label>
+            <input type="number" id="reportPhone" placeholder="ტელეფონის ნომერი"/><br>
+            <input type="email" id="reportEmail" placeholder="ელ-ფოსტა">
+
+            <label>აღწერა (ოპციონალურია) </label>
+            <textarea name="description" id="reportdesc" placeholder="ჩაწერეთ რეპორტაჟის აღწერა"/></textarea>
+          </div>
       </div>
 
     </div> 

@@ -21,6 +21,10 @@
     right: 40px;
 }
 
+#reportdesc{
+    height: 300px !important;
+}
+
 video {
   width: 100%    !important;
   height: auto   !important;
