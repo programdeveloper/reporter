@@ -21,6 +21,11 @@
     right: 40px;
 }
 
+video {
+  width: 100%    !important;
+  height: auto   !important;
+}
+
 /* stack all grids below 40em (640px) */
 @media all and (max-width: 65em) {
     .parameters .ui-block-a{

@@ -27,15 +27,16 @@ var app = {
         
     }
 };
-
+var path;
 $('.record').click(function(){
     // capture callback
     var captureSuccess = function(mediaFiles) {
-        var i, path, len;
+        var i, len;
         for (i = 0, len = mediaFiles.length; i < len; i += 1) {
             path = mediaFiles[i].fullPath;
-            // do something interesting with the file
-            alert(cordova.file.dataDirectory);
+            
+            $("#playVideo").attr('src',path);
+            $.mobile.changePage('#sendReport',{reverse:false,transition: "slide"});
         }
     };
 
