@@ -45,3 +45,74 @@ video {
         height: 50px;
     }
 }
+
+.clear:after{
+    content: "";
+    display: table;
+    clear: both;
+}
+/* necessary text ellipsis plugin styles */
+.ellip {
+    display: block;
+    height: 100%;
+}
+.ellip-line {
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+}
+.ellip,.ellip-line {
+    position: relative;
+    overflow: hidden;
+    max-width: 100%;
+}
+/* necessary text ellipsis plugin styles end */
+
+.posts {
+    max-width: 500px;
+    min-width: 300px;
+    margin: 0 auto;
+    list-style: none;
+}
+.post-items {
+    width: 100%;
+    height: 70px;
+    border-bottom: 1px solid grey;
+    overflow: hidden;
+}
+.post-img {
+    float: left;
+    width: 80px;
+    height: 70px;
+}
+.post-title {
+    float: left;
+    width: 60%;
+    height: 70px;
+    padding: 5px 10px;
+    overflow: hidden;
+}
+.post-title-center { display: block; }
+.post-action-box {
+    float: right;
+    width: 15%;
+    text-align: right;
+}
+.post-action-dot-box {
+    width: 100%;
+    padding-right: 9px;
+}
+.post-action-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: black;
+    margin: 15px 2px 5px 2px;
+    float: right;
+}
+.post-action { margin-right: 5px; }
+
+@media (max-width: 330px) {
+    .post-title { width: 55%; }
+}

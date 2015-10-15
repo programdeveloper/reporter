@@ -70,7 +70,8 @@ function sendReport(){
     localStorage.setItem("phone",phone);
     localStorage.setItem("email",email);
 
-
+    // window.PKVideoThumbnail.createThumbnail ( path, cordova.file.dataDirectory, null, null );
+    console.log(window.PKVideoThumbnail);
     var ft = new FileTransfer(),
     name = 'test';
     console.log(path);
