@@ -68,9 +68,13 @@ video {
     max-width: 100%;
 }
 /* necessary text ellipsis plugin styles end */
-
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 .posts {
-    max-width: 500px;
+    /*max-width: 500px;*/
     min-width: 300px;
     margin: 0 auto;
     list-style: none;
@@ -80,6 +84,16 @@ video {
     height: 70px;
     border-bottom: 1px solid grey;
     overflow: hidden;
+    position: relative;
+}
+.hide{
+    display: none;
+}
+.post-caption{
+    background: white;
+    height: 101%;
+    width: 100%;
+    position: absolute;
 }
 .post-img {
     float: left;
@@ -112,7 +126,12 @@ video {
     float: right;
 }
 .post-action { margin-right: 5px; }
-
+.check{
+    width: 32px;
+    height: 32px;
+    float: right;
+    background: url(../check.png) no-repeat;
+}
 @media (max-width: 330px) {
     .post-title { width: 55%; }
 }

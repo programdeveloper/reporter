@@ -70,11 +70,9 @@ function sendReport(){
     localStorage.setItem("phone",phone);
     localStorage.setItem("email",email);
 
-    // window.PKVideoThumbnail.createThumbnail ( path, cordova.file.dataDirectory, null, null );
-    alert(window.PKVideoThumbnail);
     var ft = new FileTransfer(),
     name = 'test';
-    console.log(path);
+   
     ft.upload(path,
         "http://stunet.ge/admin/reporter/uploadfile",
         function(result) {
@@ -108,3 +106,10 @@ function SaveInfo(){
         'დახურვა'                  // buttonName
     );
 }
+
+$(".post-action-dot-box").click(function(){
+    $(this).parent().next('.post-caption').removeClass('hide',1500);
+});
+$('.closecaption').click(function(){
+    $(this).parent().addClass('hide',500);
+});
