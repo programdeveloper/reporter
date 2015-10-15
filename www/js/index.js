@@ -32,13 +32,14 @@ var app = {
     }
 };
 var path;
+var reportName;
 $('.record').click(function(){
     // capture callback
     var captureSuccess = function(mediaFiles) {
         var i, len;
         for (i = 0, len = mediaFiles.length; i < len; i += 1) {
             path = mediaFiles[i].fullPath;
-            
+            reportName = mediaFiles[i].name;
             $("#playVideo").attr('src',path);
             if(!(localStorage.getItem("fullname") === null )){
                 $('#reporter').val(localStorage.getItem("fullname"));
@@ -71,19 +72,20 @@ function sendReport(){
     localStorage.setItem("email",email);
 
     var ft = new FileTransfer(),
-    name = 'test';
-   
-    ft.upload(path,
-        "http://stunet.ge/admin/reporter/uploadfile",
-        function(result) {
-            console.log('Upload success: ' + result.responseCode);
-            console.log(result.bytesSent + ' bytes sent');
-            console.log(result.response);
-        },
-        function(error) {
-            console.log('Error uploading file ' + path + ': ' + error.code);
-        },
-        { fileName: name, mimeType: 'video/mp4',chunkedMode: true });
+    name = reportName;
+
+    ft.upload(
+    path,
+    "http://stunet.ge/admin/reporter/uploadfile",
+    function(result) {
+        console.log('Upload success: ' + result.responseCode);
+        console.log(result.bytesSent + ' bytes sent');
+        console.log(result.response);
+    },
+    function(error) {
+        console.log('Error uploading file ' + path + ': ' + error.code);
+    },
+    { fileName: name, mimeType: 'video/mp4', chunkedMode: true });
 
 
 
@@ -107,9 +109,14 @@ function SaveInfo(){
     );
 }
 
-$(".post-action-dot-box").click(function(){
-    $(this).parent().next('.post-caption').removeClass('hide',1500);
+$(".post-action-dot-box").click(function(){    
+    $(this).parent().next('.post-caption').fadeToggle("slow", function() {
+        $(this).removeClass("hide");
+    });
 });
+
 $('.closecaption').click(function(){
-    $(this).parent().addClass('hide',500);
+    $(this).parent().fadeOut("slow", function() {
+        $(this).addClass("hide");
+    });
 });
