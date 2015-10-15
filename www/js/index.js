@@ -24,7 +24,10 @@ var app = {
         if(!(localStorage.getItem("email") === null)){
             $("#email").val(localStorage.getItem("email"));                   
         }
-        
+
+        pictureSource = navigator.camera.PictureSourceType;
+        destinationType = navigator.camera.DestinationType;
+        mediaType = navigator.camera.MediaType;
     }
 };
 
@@ -78,21 +81,35 @@ function sendReport(){
     path,
     "http://stunet.ge/admin/reporter/uploadfile",
     function(result) {
-        // console.log('Upload success: ' + result.responseCode);
-        // console.log(result.bytesSent + ' bytes sent');
-        // console.log(result.response);
+
+        $.ajax({
+            url: "http://stunet.ge/admin/reporter/addReport",
+            type: "POST",
+            dataType: "json",
+            data: ({
+                device: device.uuid,
+                name:  $("#reporter").val(),
+                title: $("#reportTitle").val(),
+                phone: $("#reportPhone").val(),
+                email: $("#reportEmail").val(),
+                description: $("#reportdesc").val(),
+                fileUrl : reportName
+            }),
+            success: function(data) {
+                console.log('success adding query');
+            }
+        });     
+
         var succText = "<center> <br> რეპორტაჟი გაგზავნილია! <br><br> მისი პუბლიკაციის ან არა პუბლიკაციის შემთხვევაში თქვენ მიიღებთ შეტყობინებას. <br><br> Stunet.Ge-ს გუნდი</center>";
         $('#succText').html(succText);
         setInterval(function(){
             document.location = "index.html";
-        },3000);
+        },5000);
     },
     function(error) {
         alert('Error uploading file ' + path + ': with Error ' + error.code);
     },
     { fileName: name, mimeType: 'video/mp4', chunkedMode: true });
-
-
 
 }
 
@@ -112,6 +129,41 @@ function SaveInfo(){
         'შეტყობინება',            // title
         'დახურვა'                  // buttonName
     );
+}
+
+function showGallery(){
+
+    navigator.camera.getPicture(onPhotoURISuccess, onFail, {
+        destinationType: destinationType.DATA_URL,
+        mediaType: mediaType.VIDEO,
+        sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM
+    });
+
+    function onPhotoURISuccess(imageURI) {
+        path = imageURI;
+        window.resolveLocalFileSystemURL(imageURI, function(entry){
+
+            reportName =  Math.floor((Math.random() * 100000) + 1) + ".mp4";
+
+            }, function(e){
+
+            }); 
+        if(!(localStorage.getItem("fullname") === null )){
+            $('#reporter').val(localStorage.getItem("fullname"));
+        }
+        if(!(localStorage.getItem("phone") === null )){
+            $('#reportPhone').val(localStorage.getItem("phone"));
+        }
+        if(!(localStorage.getItem("email") === null)){
+           $('#reportEmail').val(localStorage.getItem("email"));                   
+        }
+
+        $.mobile.changePage('#sendReport',{reverse:false,transition: "slide"});
+    }
+
+    function onFail(message) {
+         alert('Failed because: ' + message);
+    }
 }
 
 $(".post-action-dot-box").click(function(){    

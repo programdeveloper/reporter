@@ -85,6 +85,7 @@ video {
     border-bottom: 1px solid grey;
     overflow: hidden;
     position: relative;
+    margin-bottom: 4px;
 }
 .hide{
     display: none;
