@@ -24,15 +24,14 @@ var app = {
         if(!(localStorage.getItem("email") === null)){
             $("#email").val(localStorage.getItem("email"));                   
         }
-
-        if (cordova.platformId == 'android') {
-            StatusBar.backgroundColorByHexString("#fffk");
-        }
         
     }
 };
+
 var path;
 var reportName;
+var db;
+
 $('.record').click(function(){
     // capture callback
     var captureSuccess = function(mediaFiles) {
@@ -40,7 +39,8 @@ $('.record').click(function(){
         for (i = 0, len = mediaFiles.length; i < len; i += 1) {
             path = mediaFiles[i].fullPath;
             reportName = mediaFiles[i].name;
-            $("#playVideo").attr('src',path);
+            
+            // $('video').append('<source id="playVideo" src="'+path+'" type="video/mp4, codecs='+'avc1.4D401E, mp4a.40.2'+'">');
             if(!(localStorage.getItem("fullname") === null )){
                 $('#reporter').val(localStorage.getItem("fullname"));
             }
@@ -78,12 +78,17 @@ function sendReport(){
     path,
     "http://stunet.ge/admin/reporter/uploadfile",
     function(result) {
-        console.log('Upload success: ' + result.responseCode);
-        console.log(result.bytesSent + ' bytes sent');
-        console.log(result.response);
+        // console.log('Upload success: ' + result.responseCode);
+        // console.log(result.bytesSent + ' bytes sent');
+        // console.log(result.response);
+        var succText = "<center> <br> რეპორტაჟი გაგზავნილია! <br><br> მისი პუბლიკაციის ან არა პუბლიკაციის შემთხვევაში თქვენ მიიღებთ შეტყობინებას. <br><br> Stunet.Ge-ს გუნდი</center>";
+        $('#succText').html(succText);
+        setInterval(function(){
+            document.location = "index.html";
+        },3000);
     },
     function(error) {
-        console.log('Error uploading file ' + path + ': ' + error.code);
+        alert('Error uploading file ' + path + ': with Error ' + error.code);
     },
     { fileName: name, mimeType: 'video/mp4', chunkedMode: true });
 

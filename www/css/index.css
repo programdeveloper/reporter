@@ -132,6 +132,18 @@ video {
     float: right;
     background: url(../check.png) no-repeat;
 }
+.deny{
+    width: 32px;
+    height: 32px;
+    float: right;
+    background: url(../deny.png) no-repeat;
+}
+.loading{
+    width: 32px;
+    height: 32px;
+    float: right;
+    background: url(../loading.png) no-repeat;
+}
 @media (max-width: 330px) {
     .post-title { width: 55%; }
 }
