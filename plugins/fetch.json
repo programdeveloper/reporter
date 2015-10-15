@@ -1,0 +1,10 @@
+{
+    "com.photokandy.videothumbnail": {
+        "source": {
+            "type": "registry",
+            "id": "com.photokandy.videothumbnail"
+        },
+        "is_top_level": true,
+        "variables": {}
+    }
+}
