@@ -1,3 +1,6 @@
+var path;
+var reportName;
+var db;
 var app = {
     // Application Constructor
     initialize: function() {
@@ -28,12 +31,76 @@ var app = {
         pictureSource = navigator.camera.PictureSourceType;
         destinationType = navigator.camera.DestinationType;
         mediaType = navigator.camera.MediaType;
+
+        // var request = window.indexedDB.open("Reporter", 3);
+        // request.onerror = function(event) {
+        //   alert('error created');
+        // };
+        // request.onsuccess = function(event) {
+        //   db = event;
+        // };
+        getPosts();
     }
 };
 
-var path;
-var reportName;
-var db;
+function getPosts(){
+    var html= "";
+    $.ajax({
+        url: "http://stunet.ge/admin/reporter/getReports",
+        type: "POST",
+        dataType: "json",
+        data: ({
+            device: device.uuid
+        }),
+        success: function(data) {
+            $.each(data, function(i, item) {
+                console.log(item.title);
+              html += 
+              '<li class="post-items">'+
+            '<img src="post.png" class="post-img" />'+
+            '<p class="post-title ellipsis">'+
+               item.title +
+            '</p>'+
+            '<div class="post-action-box">'+
+              '<div class="post-action-dot-box clear">'+
+               ' <span class="post-action-dot"></span><span class="post-action-dot"></span><span class="post-action-dot"></span>'+
+             '</div>';
+            if(item.status==0)
+                html+= ' <div class="loading post-action">&nbsp;</div>';
+            if(item.status==1)
+                html+= ' <div class="check post-action">&nbsp;</div>';
+            if(item.status==2)
+                html+= ' <div class="deny post-action">&nbsp;</div>';
+
+           html+= ' </div>'+
+            '<p class="post-caption hide">';
+            if(item.status==0)
+                html+= 'რეპორტაჟი დამტკიცების მოლოდინშია.<br>გაგზავნის თარიღი :' + item.receive_date;
+            if(item.status==1)
+                html+= item.receive_date +"/"+ item.post_date+' რეპორტაჟის ნახვა <a href="'+item.stunet_url+'">stunet.ge</a>-ზე';
+            if(item.status==2)
+                html+= 'რეპორტაჟი არ იყო დამტკიცებული ადმინისტრატორის მიერ. მიზეზი: ' +item.reason;
+             
+            html+= ' <a data-icon="delete" class="ui-btn-right closecaption" data-iconpos="notext" data-role="button" data-corners="false" data-shadow="false">Close</a>'+
+            '</p>'+
+          '</li>';
+
+            });  
+            $('.posts').html(html);
+            $(".post-action-dot-box").click(function(){    
+            $(this).parent().next('.post-caption').fadeToggle("slow", function() {
+                    $(this).removeClass("hide");
+                });
+            });
+
+            $('.closecaption').click(function(){
+                $(this).parent().fadeOut("slow", function() {
+                    $(this).addClass("hide");
+                });
+            });
+        }
+    });     
+}
 
 $('.record').click(function(){
     // capture callback
@@ -99,6 +166,51 @@ function sendReport(){
                 console.log('success adding query');
             }
         });     
+       
+        // db.transaction(insertDB, errorCB);
+
+        Number.prototype.padLeft = function(base,chr){
+           var  len = (String(base || 10).length - String(this).length)+1;
+           return len > 0? new Array(len).join(chr || '0')+this : this;
+        }
+    
+
+        function insertDB(tx) {
+            var d = new Date,
+                dformat = [ d.getFullYear().padLeft(),
+                    (d.getMonth()+1).padLeft(),
+                    d.getDate()].join('-')+
+                    ' ' +
+                  [ d.getHours().padLeft(),
+                    d.getMinutes().padLeft(),
+                    d.getSeconds().padLeft()].join(':');
+            var sql = 'INSERT INTO REPORTS (fullname,title, image, description,status,reason,stuLink,date,postdate) VALUES (?,?,?,?,?,?,?,?,?)';
+            tx.executeSql(sql, ['fullname','title','post.png','desc','0','0','0','dformat','0'], sucessQueryDB, errorCB);
+
+        }
+     
+        function sucessQueryDB(tx) {     
+            tx.executeSql('SELECT * FROM REPORTS', [], renderList, errorCBg);
+        }
+     
+        function renderList(tx,results) {
+            var htmlstring = '';
+            console.log(results);
+             
+            var len = results.rows.length;
+             
+            for (var i=0; i<len; i++){
+                htmlstring += '<li>' + results.rows.item(i).title + '</li>';
+                 
+            }
+             
+            $('#resultList').html(htmlstring);
+            $('#resultList').listview('refresh');
+                  
+        }
+
+        
+        
 
         var succText = "<center> <br> რეპორტაჟი გაგზავნილია! <br><br> მისი პუბლიკაციის ან არა პუბლიკაციის შემთხვევაში თქვენ მიიღებთ შეტყობინებას. <br><br> Stunet.Ge-ს გუნდი</center>";
         $('#succText').html(succText);
@@ -166,14 +278,3 @@ function showGallery(){
     }
 }
 
-$(".post-action-dot-box").click(function(){    
-    $(this).parent().next('.post-caption').fadeToggle("slow", function() {
-        $(this).removeClass("hide");
-    });
-});
-
-$('.closecaption').click(function(){
-    $(this).parent().fadeOut("slow", function() {
-        $(this).addClass("hide");
-    });
-});
