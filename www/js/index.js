@@ -1,22 +1,12 @@
 var path;
 var reportName;
-var db;
 var app = {
-    // Application Constructor
     initialize: function() {
         this.bindEvents();
     },
-    // Bind Event Listeners
-    //
-    // Bind any events that are required on startup. Common events are:
-    // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
     },
-    // deviceready Event Handler
-    //
-    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-    // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         if(!(localStorage.getItem("fullname") === null )){
             $("#fullname").val(localStorage.getItem("fullname"));
@@ -32,13 +22,6 @@ var app = {
         destinationType = navigator.camera.DestinationType;
         mediaType = navigator.camera.MediaType;
 
-        // var request = window.indexedDB.open("Reporter", 3);
-        // request.onerror = function(event) {
-        //   alert('error created');
-        // };
-        // request.onsuccess = function(event) {
-        //   db = event;
-        // };
         getPosts();
     }
 };
@@ -55,8 +38,8 @@ function getPosts(){
         success: function(data) {
             $.each(data, function(i, item) {
                 console.log(item.title);
-              html += 
-              '<li class="post-items">'+
+            html += 
+            '<li class="post-items">'+
             '<img src="post.png" class="post-img" />'+
             '<p class="post-title ellipsis">'+
                item.title +
@@ -71,36 +54,36 @@ function getPosts(){
                 html+= ' <div class="check post-action">&nbsp;</div>';
             if(item.status==2)
                 html+= ' <div class="deny post-action">&nbsp;</div>';
-
-           html+= ' </div>'+
+            html+= ' </div>'+
             '<p class="post-caption hide">';
             if(item.status==0)
                 html+= 'რეპორტაჟი დამტკიცების მოლოდინშია.<br>გაგზავნის თარიღი :' + item.receive_date;
             if(item.status==1)
-                html+= item.receive_date +"/"+ item.post_date+' რეპორტაჟის ნახვა <a href="'+item.stunet_url+'">stunet.ge</a>-ზე';
+                html+= item.receive_date +"/"+ item.post_date+'<br> რეპორტაჟის ნახვა <a href="'+item.stunet_url+'">stunet.ge</a>-ზე';
             if(item.status==2)
                 html+= 'რეპორტაჟი არ იყო დამტკიცებული ადმინისტრატორის მიერ. მიზეზი: ' +item.reason;
-             
-            html+= ' <a data-icon="delete" class="ui-btn-right closecaption" data-iconpos="notext" data-role="button" data-corners="false" data-shadow="false">Close</a>'+
+         
+            html+= '<a role="button" data-role="button" class="ui-link ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext closecaption" data-icon="delete" data-iconpos="notext" data-corners="false" data-shadow="false"></a>'+
             '</p>'+
-          '</li>';
+            '</li>';
 
             });  
             $('.posts').html(html);
-            $(".post-action-dot-box").click(function(){    
-            $(this).parent().next('.post-caption').fadeToggle("slow", function() {
-                    $(this).removeClass("hide");
-                });
-            });
-
-            $('.closecaption').click(function(){
-                $(this).parent().fadeOut("slow", function() {
-                    $(this).addClass("hide");
-                });
-            });
         }
     });     
 }
+
+$(document).on('click','.post-action-dot-box',function(){    
+    $(this).parent().next('.post-caption').fadeToggle("slow", function() {
+        $(this).removeClass("hide");
+    });
+});
+
+$(document).on('click','.closecaption',function(){
+    $(this).parent().fadeOut("slow", function() {
+        $(this).addClass("hide");
+    });
+});
 
 $('.record').click(function(){
     // capture callback
@@ -110,7 +93,6 @@ $('.record').click(function(){
             path = mediaFiles[i].fullPath;
             reportName = mediaFiles[i].name;
             
-            // $('video').append('<source id="playVideo" src="'+path+'" type="video/mp4, codecs='+'avc1.4D401E, mp4a.40.2'+'">');
             if(!(localStorage.getItem("fullname") === null )){
                 $('#reporter').val(localStorage.getItem("fullname"));
             }
@@ -124,7 +106,6 @@ $('.record').click(function(){
             $.mobile.changePage('#sendReport',{reverse:false,transition: "slide"});
         }
     };
-
     var options = { limit: 1, quality: 1 };
     navigator.device.capture.captureVideo(captureSuccess, null, options);
 
@@ -167,51 +148,20 @@ function sendReport(){
             }
         });     
        
-        // db.transaction(insertDB, errorCB);
 
         Number.prototype.padLeft = function(base,chr){
            var  len = (String(base || 10).length - String(this).length)+1;
-           return len > 0? new Array(len).join(chr || '0')+this : this;
+           return len > 0 ? new Array(len).join(chr || '0')+this : this;
         }
-    
-
-        function insertDB(tx) {
-            var d = new Date,
-                dformat = [ d.getFullYear().padLeft(),
-                    (d.getMonth()+1).padLeft(),
-                    d.getDate()].join('-')+
-                    ' ' +
-                  [ d.getHours().padLeft(),
-                    d.getMinutes().padLeft(),
-                    d.getSeconds().padLeft()].join(':');
-            var sql = 'INSERT INTO REPORTS (fullname,title, image, description,status,reason,stuLink,date,postdate) VALUES (?,?,?,?,?,?,?,?,?)';
-            tx.executeSql(sql, ['fullname','title','post.png','desc','0','0','0','dformat','0'], sucessQueryDB, errorCB);
-
-        }
-     
-        function sucessQueryDB(tx) {     
-            tx.executeSql('SELECT * FROM REPORTS', [], renderList, errorCBg);
-        }
-     
-        function renderList(tx,results) {
-            var htmlstring = '';
-            console.log(results);
-             
-            var len = results.rows.length;
-             
-            for (var i=0; i<len; i++){
-                htmlstring += '<li>' + results.rows.item(i).title + '</li>';
-                 
-            }
-             
-            $('#resultList').html(htmlstring);
-            $('#resultList').listview('refresh');
-                  
-        }
-
+        var d = new Date,
+        dformat = [ d.getFullYear().padLeft(),
+            (d.getMonth()+1).padLeft(),
+            d.getDate()].join('-')+
+            ' ' +
+          [ d.getHours().padLeft(),
+            d.getMinutes().padLeft(),
+            d.getSeconds().padLeft()].join(':');
         
-        
-
         var succText = "<center> <br> რეპორტაჟი გაგზავნილია! <br><br> მისი პუბლიკაციის ან არა პუბლიკაციის შემთხვევაში თქვენ მიიღებთ შეტყობინებას. <br><br> Stunet.Ge-ს გუნდი</center>";
         $('#succText').html(succText);
         setInterval(function(){
@@ -233,7 +183,6 @@ function SaveInfo(){
     localStorage.setItem("fullname",fullname);
     localStorage.setItem("phone",phone);
     localStorage.setItem("email",email);
-    
 
     navigator.notification.alert(
         'თქვენი მონაცემები წარმატებით შეინახა',  // message
@@ -254,12 +203,10 @@ function showGallery(){
     function onPhotoURISuccess(imageURI) {
         path = imageURI;
         window.resolveLocalFileSystemURL(imageURI, function(entry){
-
             reportName =  Math.floor((Math.random() * 100000) + 1) + ".mp4";
-
             }, function(e){
-
             }); 
+
         if(!(localStorage.getItem("fullname") === null )){
             $('#reporter').val(localStorage.getItem("fullname"));
         }
@@ -269,10 +216,8 @@ function showGallery(){
         if(!(localStorage.getItem("email") === null)){
            $('#reportEmail').val(localStorage.getItem("email"));                   
         }
-
         $.mobile.changePage('#sendReport',{reverse:false,transition: "slide"});
     }
-
     function onFail(message) {
          alert('Failed because: ' + message);
     }
