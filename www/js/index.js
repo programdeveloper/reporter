@@ -25,6 +25,8 @@ var app = {
         getPosts();
     }
 };
+    
+setInterval(getPosts(),120000);
 
 function getPosts(){
     var html= "";
@@ -36,8 +38,11 @@ function getPosts(){
             device: device.uuid
         }),
         success: function(data) {
+        if(data.length==0){
+            html += "<center> თქვენ არ გაქვთ არცერთი გაგზავნილი რეპორტაჟი. პირველი რეპორტაჟის გადასაღებად დააჭირეთ ქვევით მოცემულ ღილაკს. </center>";
+        }
+        else{
             $.each(data, function(i, item) {
-                console.log(item.title);
             html += 
             '<li class="post-items">'+
             '<img src="post.png" class="post-img" />'+
@@ -68,22 +73,23 @@ function getPosts(){
             '</li>';
 
             });  
+        }
             $('.posts').html(html);
+            $(document).on('click','.post-action-dot-box',function(){    
+                $(this).parent().next('.post-caption').fadeToggle("slow", function() {
+                    $(this).removeClass("hide");
+                });
+            });
+
+            $(document).on('click','.closecaption',function(){
+                $(this).parent().fadeOut("slow", function() {
+                    $(this).addClass("hide");
+                });
+            });
         }
     });     
 }
 
-$(document).on('click','.post-action-dot-box',function(){    
-    $(this).parent().next('.post-caption').fadeToggle("slow", function() {
-        $(this).removeClass("hide");
-    });
-});
-
-$(document).on('click','.closecaption',function(){
-    $(this).parent().fadeOut("slow", function() {
-        $(this).addClass("hide");
-    });
-});
 
 $('.record').click(function(){
     // capture callback
@@ -129,7 +135,6 @@ function sendReport(){
     path,
     "http://stunet.ge/admin/reporter/uploadfile",
     function(result) {
-
         $.ajax({
             url: "http://stunet.ge/admin/reporter/addReport",
             type: "POST",
