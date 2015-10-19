@@ -45,7 +45,7 @@ function getPosts(){
             $.each(data, function(i, item) {
             html += 
             '<li class="post-items">'+
-            '<img src="post.png" class="post-img" />'+
+            '<img src="'+item.thumb+'" class="post-img" />'+
             '<p class="post-title ellipsis">'+
                item.title +
             '</p>'+
@@ -66,7 +66,7 @@ function getPosts(){
             if(item.status==1)
                 html+= item.receive_date +"/"+ item.post_date+'<br> რეპორტაჟის ნახვა <a href="'+item.stunet_url+'">stunet.ge</a>-ზე';
             if(item.status==2)
-                html+= 'რეპორტაჟი არ იყო დამტკიცებული ადმინისტრატორის მიერ. მიზეზი: ' +item.reason;
+                html+= 'რეპორტაჟი არ იყო დამტკიცებული ადმინისტრატორის მიერ. <br> მიზეზი: ' +item.reason;
          
             html+= '<a role="button" data-role="button" class="ui-link ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext closecaption" data-icon="delete" data-iconpos="notext" data-corners="false" data-shadow="false"></a>'+
             '</p>'+
@@ -154,18 +154,18 @@ function sendReport(){
         });     
        
 
-        Number.prototype.padLeft = function(base,chr){
-           var  len = (String(base || 10).length - String(this).length)+1;
-           return len > 0 ? new Array(len).join(chr || '0')+this : this;
-        }
-        var d = new Date,
-        dformat = [ d.getFullYear().padLeft(),
-            (d.getMonth()+1).padLeft(),
-            d.getDate()].join('-')+
-            ' ' +
-          [ d.getHours().padLeft(),
-            d.getMinutes().padLeft(),
-            d.getSeconds().padLeft()].join(':');
+        // Number.prototype.padLeft = function(base,chr){
+        //    var  len = (String(base || 10).length - String(this).length)+1;
+        //    return len > 0 ? new Array(len).join(chr || '0')+this : this;
+        // }
+        // var d = new Date,
+        // dformat = [ d.getFullYear().padLeft(),
+        //     (d.getMonth()+1).padLeft(),
+        //     d.getDate()].join('-')+
+        //     ' ' +
+        //   [ d.getHours().padLeft(),
+        //     d.getMinutes().padLeft(),
+        //     d.getSeconds().padLeft()].join(':');
         
         var succText = "<center> <br> რეპორტაჟი გაგზავნილია! <br><br> მისი პუბლიკაციის ან არა პუბლიკაციის შემთხვევაში თქვენ მიიღებთ შეტყობინებას. <br><br> Stunet.Ge-ს გუნდი</center>";
         $('#succText').html(succText);
@@ -174,7 +174,15 @@ function sendReport(){
         },5000);
     },
     function(error) {
-        alert('Error uploading file ' + path + ': with Error ' + error.code);
+        if(error.code==3){
+            navigator.notification.alert(
+                'გთხოვთ ჩართოთ ინტერნეტი და სცადოთ თავიდან.',  // message
+                null,         // callback
+                'შეცდომა!!!',            // title
+                'დახურვა'                  // buttonName
+            );
+        }
+        // alert('Error uploading file ' + path + ': with Error ' + error.code);
     },
     { fileName: name, mimeType: 'video/mp4', chunkedMode: true });
 
