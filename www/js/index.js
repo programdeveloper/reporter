@@ -128,6 +128,8 @@ function sendReport(){
     localStorage.setItem("phone",phone);
     localStorage.setItem("email",email);
 
+    $('#loadingImg').css('display','block');
+    
     var ft = new FileTransfer(),
     name = reportName;
 
@@ -146,7 +148,8 @@ function sendReport(){
                 phone: $("#reportPhone").val(),
                 email: $("#reportEmail").val(),
                 description: $("#reportdesc").val(),
-                fileUrl : reportName
+                fileUrl : reportName,
+                thumb : '/post.png'
             }),
             success: function(data) {
                 console.log('success adding query');
