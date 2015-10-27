@@ -38,10 +38,10 @@ function getPosts(){
             device: device.uuid
         }),
         success: function(data) {
-        if(data.length==0){
-            html += "<center> თქვენ არ გაქვთ არცერთი გაგზავნილი რეპორტაჟი. პირველი რეპორტაჟის გადასაღებად დააჭირეთ ქვევით მოცემულ ღილაკს. </center>";
-        }
-        else{
+        // if(data.length==0){
+        //     html += "<center> თქვენ არ გაქვთ არცერთი გაგზავნილი რეპორტაჟი. პირველი რეპორტაჟის გადასაღებად დააჭირეთ ქვევით მოცემულ ღილაკს. </center>";
+        // }
+        // else{
             $.each(data, function(i, item) {
             html += 
             '<li class="post-items">'+
@@ -73,7 +73,7 @@ function getPosts(){
             '</li>';
 
             });  
-        }
+        // }
             $('.posts').html(html);
             $(document).on('click','.post-action-dot-box',function(){    
                 $(this).parent().next('.post-caption').fadeToggle("slow", function() {
