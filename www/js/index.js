@@ -167,7 +167,7 @@ function sendReport(){
         //     d.getMinutes().padLeft(),
         //     d.getSeconds().padLeft()].join(':');
         
-        $('#loadingImg').css('display','none');
+        // $('#loadingImg').css('display','none');
         var succText = "<center> <br> რეპორტაჟი გაგზავნილია! <br><br> მისი პუბლიკაციის ან არა პუბლიკაციის შემთხვევაში თქვენ მიიღებთ შეტყობინებას. <br><br> Stunet.Ge-ს გუნდი</center>";
         $('#succText').html(succText);
         setInterval(function(){
@@ -187,7 +187,7 @@ function sendReport(){
     },
     { fileName: name, mimeType: 'video/mp4', chunkedMode: true });
 
-    $('#loadingImg').css('display','block');
+    // $('#loadingImg').css('display','block');
 }
 
 function SaveInfo(){
