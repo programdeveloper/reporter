@@ -91,7 +91,7 @@ function getPosts(){
             });
         },
         error:function(error){
-            alert(error);
+            alert(error.Message);
         }
     });     
 }
