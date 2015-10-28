@@ -23,6 +23,7 @@ var app = {
         mediaType = navigator.camera.MediaType;
 
         getPosts();
+        alert(device.uuid);
     }
 };
     
