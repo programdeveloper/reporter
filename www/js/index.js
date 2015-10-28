@@ -89,6 +89,9 @@ function getPosts(){
                     $(this).addClass("hide");
                 });
             });
+        },
+        error:function(error){
+            alert(error);
         }
     });     
 }
