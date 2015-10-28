@@ -44,6 +44,7 @@ function getPosts(){
         //     html += "<center> თქვენ არ გაქვთ არცერთი გაგზავნილი რეპორტაჟი. პირველი რეპორტაჟის გადასაღებად დააჭირეთ ქვევით მოცემულ ღილაკს. </center>";
         // }
         // else{
+            alert(data);
             $.each(data, function(i, item) {
             html += 
             '<li class="post-items">'+
