@@ -23,13 +23,14 @@ var app = {
         mediaType = navigator.camera.MediaType;
 
         getPosts();
-        alert(device.uuid);
+        // alert(device.uuid);
     }
 };
     
 // setInterval(getPosts(),120000);
 
 function getPosts(){
+    alert('called');
     var html= "";
     $.ajax({
         url: "http://stunet.ge/admin/reporter/getReports",
