@@ -91,8 +91,9 @@ function getPosts(){
                 });
             });
         },
-        error:function(error){
-            alert(error.message);
+        error: function(xhr, status, error) {
+            var err = eval("(" + xhr.responseText + ")");
+            alert(err.Message);
         }
     });     
 }
