@@ -32,6 +32,7 @@ var app = {
 function getPosts(){
     alert('called');
     var html= "";
+    alert(device.uuid);
     $.ajax({
         url: "http://stunet.ge/admin/reporter/getReports",
         type: "POST",
