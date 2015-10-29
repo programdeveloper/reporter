@@ -184,6 +184,7 @@ function getPosts(){
     $.ajax({
         url: "http://stunet.ge/admin/reporter/getReports",
         type: "POST",
+        cache : false,
         dataType: "json",
         data: ({
             device: device.uuid
