@@ -237,6 +237,9 @@ function getPosts(){
                     $(this).addClass("hide");
                 });
             });
+        },
+        error: function(e) {
+            alert('Error: ' + e.message);
         }
     });     
 };
