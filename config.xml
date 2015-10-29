@@ -42,7 +42,7 @@
     <gap:plugin source="npm" name="org.apache.cordova.splashscreen" />
     <gap:plugin source="npm" name="org.apache.cordova.vibration" />
     <icon src="img/stunet.png" />
-    <access origin="*" />
+    <access origin="http://stunet.ge" />
     <plugin name="cordova-plugin-whitelist" version="1" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
