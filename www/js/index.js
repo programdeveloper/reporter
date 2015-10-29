@@ -238,8 +238,10 @@ function getPosts(){
                 });
             });
         },
-        error: function(e) {
-            alert('Error: ' + e.message);
+        error: function(e,b,k) {
+            alert('Error: ' + e);
+            alert('Error: ' + b);
+            alert('Error: ' + k);
         }
     });     
 };
