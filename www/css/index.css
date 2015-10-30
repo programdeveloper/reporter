@@ -20,6 +20,9 @@
     bottom: 40px;
     right: 40px;
 }
+.noBg, .noBg:active, .noBg:hover{
+    background: none !important;
+}
 
 #reportdesc{
     height: 300px !important;
