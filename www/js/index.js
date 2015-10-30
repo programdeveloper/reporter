@@ -67,7 +67,6 @@ function sendReport(){
     localStorage.setItem("phone",phone);
     localStorage.setItem("email",email);
 
-    // $('#loadingImg').css('display','block');
     
     var ft = new FileTransfer(),
     name = reportName;
@@ -95,6 +94,7 @@ function sendReport(){
             }
         });     
        
+        $('#loadingImg').css('display','block');
 
         // Number.prototype.padLeft = function(base,chr){
         //    var  len = (String(base || 10).length - String(this).length)+1;
@@ -113,6 +113,7 @@ function sendReport(){
         $('#succText').html(succText);
         setInterval(function(){
             document.location = "index.html";
+            $('#loadingImg').css('display','none');
         },5000);
     },
     function(error) {
@@ -124,7 +125,7 @@ function sendReport(){
                 'დახურვა'                  // buttonName
             );
         }
-         // $('#loadingImg').css('display','none');
+         $('#loadingImg').css('display','none');
          alert('Error uploading file ' + path + ': with Error ' + error.code);
     },
     { fileName: name, mimeType: 'video/mp4', chunkedMode: true });
