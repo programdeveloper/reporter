@@ -87,7 +87,7 @@ function sendReport(){
                 email: $("#reportEmail").val(),
                 description: $("#reportdesc").val(),
                 fileUrl : reportName,
-                thumb : '/post.png'
+                thumb : 'post.png'
             }),
             success: function(data) {
                 console.log('success adding query');
@@ -186,8 +186,6 @@ function getPosts(){
         url: "http://stunet.ge/admin/reporter/getReports",
         type: "POST",
         dataType: "json",
-        async: false,
-        global:false,
         data: ({
             device: device.uuid
         }),
