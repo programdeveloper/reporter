@@ -240,9 +240,8 @@ function getPosts(){
             });
         },
         error: function(e,b,k) {
-            // alert('Error: ' + e);
-            // alert('Error: ' + b);
-            // alert('Error: ' + k);
+            var html = "გაგზავნილი რეპორტაჟების სანახავად გთხოვთ ჩართოთ ინტერნეტი.";
+            $('.posts').html(html);
         }
     });     
 };
