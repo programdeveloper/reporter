@@ -186,6 +186,8 @@ function getPosts(){
         url: "http://stunet.ge/admin/reporter/getReports",
         type: "POST",
         dataType: "json",
+        async: false,
+        global:false,
         data: ({
             device: device.uuid
         }),
