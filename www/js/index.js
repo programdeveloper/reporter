@@ -185,7 +185,6 @@ function getPosts(){
     $.ajax({
         url: "http://stunet.ge/admin/reporter/getReports",
         type: "POST",
-        cache : false,
         dataType: "json",
         data: ({
             device: device.uuid
@@ -241,9 +240,9 @@ function getPosts(){
             });
         },
         error: function(e,b,k) {
-            alert('Error: ' + e);
-            alert('Error: ' + b);
-            alert('Error: ' + k);
+            // alert('Error: ' + e);
+            // alert('Error: ' + b);
+            // alert('Error: ' + k);
         }
     });     
 };
