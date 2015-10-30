@@ -26,7 +26,7 @@ var app = {
     }
 };
     
-// setInterval(getPosts,120000);
+setInterval(getPosts,120000);
 
 
 
