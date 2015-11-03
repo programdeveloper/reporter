@@ -17,7 +17,7 @@ var app = {
         if(!(localStorage.getItem("email") === null)){
             $("#email").val(localStorage.getItem("email"));                   
         }
-        localStorage.setItem("mobiledata",'off');
+
         pictureSource = navigator.camera.PictureSourceType;
         destinationType = navigator.camera.DestinationType;
         mediaType = navigator.camera.MediaType;
@@ -26,7 +26,7 @@ var app = {
     }
 };
     
-setInterval(getPosts,120000);
+// setInterval(getPosts,120000);
 
 
 
@@ -71,30 +71,29 @@ function sendReport(){
     $('#loadingImg').css('display','block');
     var ft = new FileTransfer(),
     name = reportName;
-    if(!(localStorage.getItem("mobiledata") == 'on' )){
-        ft.upload(
-        path,
-        "http://stunet.ge/admin/reporter/uploadfile",
-        function(result) {
-            $.ajax({
-                url: "http://stunet.ge/admin/reporter/addReport",
-                type: "POST",
-                dataType: "json",
-                data: ({
-                    device: device.uuid,
-                    name:  $("#reporter").val(),
-                    title: $("#reportTitle").val(),
-                    phone: $("#reportPhone").val(),
-                    email: $("#reportEmail").val(),
-                    description: $("#reportdesc").val(),
-                    fileUrl : reportName,
-                    thumb : 'post.png'
-                }),
-                success: function(data) {
-                    console.log('success adding query');
-                }
-            });     
-        }
+
+    ft.upload(
+    path,
+    "http://stunet.ge/admin/reporter/uploadfile",
+    function(result) {
+        $.ajax({
+            url: "http://stunet.ge/admin/reporter/addReport",
+            type: "POST",
+            dataType: "json",
+            data: ({
+                device: device.uuid,
+                name:  $("#reporter").val(),
+                title: $("#reportTitle").val(),
+                phone: $("#reportPhone").val(),
+                email: $("#reportEmail").val(),
+                description: $("#reportdesc").val(),
+                fileUrl : reportName,
+                thumb : 'post.png'
+            }),
+            success: function(data) {
+                console.log('success adding query');
+            }
+        });     
        
 
         // Number.prototype.padLeft = function(base,chr){
@@ -246,7 +245,3 @@ function getPosts(){
         }
     });     
 };
-
-$('#flipswitch').change(function(){
-    localStorage.setItem("mobiledata",$('#flipswitch').val());
-});
