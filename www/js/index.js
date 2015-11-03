@@ -95,14 +95,6 @@ function sendReport(){
                 }
             });     
         }
-        else{
-            navigator.notification.alert(
-                'მობილური ინტერნეტის გამოყენება შეზღუდულია. გთხოვთ გამოიყენოთ Wifi ან გამორთოთ შეზღუდვა პარამეტრებიდან',  // message
-                null,         // callback
-                'შეცდომა!!!',            // title
-                'დახურვა'                  // buttonName
-            );
-        }
        
 
         // Number.prototype.padLeft = function(base,chr){
