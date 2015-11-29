@@ -26,7 +26,7 @@ var app = {
     }
 };
     
-// setInterval(getPosts,120000);
+setInterval(getPosts,100000);
 
 
 
@@ -71,65 +71,60 @@ function sendReport(){
     $('#loadingImg').css('display','block');
     var ft = new FileTransfer(),
     name = reportName;
-
-    ft.upload(
-    path,
-    "http://stunet.ge/admin/reporter/uploadfile",
-    function(result) {
-        $.ajax({
-            url: "http://stunet.ge/admin/reporter/addReport",
-            type: "POST",
-            dataType: "json",
-            data: ({
-                device: device.uuid,
-                name:  $("#reporter").val(),
-                title: $("#reportTitle").val(),
-                phone: $("#reportPhone").val(),
-                email: $("#reportEmail").val(),
-                description: $("#reportdesc").val(),
-                fileUrl : reportName,
-                thumb : 'post.png'
-            }),
-            success: function(data) {
-                console.log('success adding query');
+    if(fullname && title && phone){
+        ft.upload(
+        path,
+        "http://stunet.ge/admin/reporter/uploadfile",
+        function(result) {
+            $.ajax({
+                url: "http://stunet.ge/admin/reporter/addReport",
+                type: "GET",
+                dataType: "json",
+                data: ({
+                    device: device.uuid,
+                    name:  $("#reporter").val(),
+                    title: $("#reportTitle").val(),
+                    phone: $("#reportPhone").val(),
+                    email: $("#reportEmail").val(),
+                    description: $("#reportdesc").val(),
+                    fileUrl : reportName,
+                    thumb : 'post.png'
+                }),
+                success: function(data) {
+                    console.log('success adding query');
+                }
+            });     
+            
+            $('#loadingImg').css('display','none');
+            var succText = "<center> <br> რეპორტაჟი გაგზავნილია! <br><br> მისი პუბლიკაციის ან არა პუბლიკაციის შემთხვევაში თქვენ მიიღებთ შეტყობინებას. <br><br> Stunet.Ge-ს გუნდი</center>";
+            $('#succText').html(succText);
+            setInterval(function(){
+                document.location = "index.html";
+            },5000);
+        },
+        function(error) {
+            if(error.code==3){
+                navigator.notification.alert(
+                    'გთხოვთ ჩართოთ ინტერნეტი და სცადოთ თავიდან.',  // message
+                    null,         // callback
+                    'შეცდომა!!!',            // title
+                    'დახურვა'                  // buttonName
+                );
             }
-        });     
-       
-
-        // Number.prototype.padLeft = function(base,chr){
-        //    var  len = (String(base || 10).length - String(this).length)+1;
-        //    return len > 0 ? new Array(len).join(chr || '0')+this : this;
-        // }
-        // var d = new Date,
-        // dformat = [ d.getFullYear().padLeft(),
-        //     (d.getMonth()+1).padLeft(),
-        //     d.getDate()].join('-')+
-        //     ' ' +
-        //   [ d.getHours().padLeft(),
-        //     d.getMinutes().padLeft(),
-        //     d.getSeconds().padLeft()].join(':');
-        
-        $('#loadingImg').css('display','none');
-        var succText = "<center> <br> რეპორტაჟი გაგზავნილია! <br><br> მისი პუბლიკაციის ან არა პუბლიკაციის შემთხვევაში თქვენ მიიღებთ შეტყობინებას. <br><br> Stunet.Ge-ს გუნდი</center>";
-        $('#succText').html(succText);
-        setInterval(function(){
-            document.location = "index.html";
-        },5000);
-    },
-    function(error) {
-        if(error.code==3){
-            navigator.notification.alert(
-                'გთხოვთ ჩართოთ ინტერნეტი და სცადოთ თავიდან.',  // message
-                null,         // callback
-                'შეცდომა!!!',            // title
-                'დახურვა'                  // buttonName
-            );
-        }
-         $('#loadingImg').css('display','none');
-         alert('Error uploading file ' + path + ': with Error ' + error.code);
-    },
-    { fileName: name, mimeType: 'video/mp4', chunkedMode: true });
-
+             $('#loadingImg').css('display','none');
+             alert('Error uploading file ' + path + ': with Error ' + error.code);
+        },
+        { fileName: name, mimeType: 'video/mp4', chunkedMode: true });
+    }
+    else{
+        navigator.notification.alert(
+            'ყველა ველის შევსება სავალდებულოა!',  // message
+            null,         // callback
+            'შეცდომა!!!',            // title
+            'დახურვა'                  // buttonName
+        );
+    }
+    
 }
 
 function SaveInfo(){
