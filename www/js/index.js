@@ -1,5 +1,8 @@
 var path;
 var reportName;
+var pictureSource; 
+var destinationType; 
+var mediaType;
 var app = {
     initialize: function() {
         this.bindEvents();
@@ -26,7 +29,7 @@ var app = {
     }
 };
     
-setInterval(getPosts,100000);
+// setInterval(getPosts,100000);
 
 
 
@@ -147,9 +150,9 @@ function SaveInfo(){
 function showGallery(){
 
     navigator.camera.getPicture(onPhotoURISuccess, onFail, {
-        destinationType: destinationType.DATA_URL,
+        destinationType: destinationType.FILE_URI,
         mediaType: mediaType.VIDEO,
-        sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM
+        sourceType: source
     });
 
     function onPhotoURISuccess(imageURI) {
@@ -157,6 +160,7 @@ function showGallery(){
         window.resolveLocalFileSystemURL(imageURI, function(entry){
             reportName =  Math.floor((Math.random() * 100000) + 1) + ".mp4";
             }, function(e){
+                alert(e);
             }); 
 
         if(!(localStorage.getItem("fullname") === null )){
