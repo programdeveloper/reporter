@@ -152,7 +152,7 @@ function showGallery(){
     navigator.camera.getPicture(onPhotoURISuccess, onFail, {
         destinationType: destinationType.FILE_URI,
         mediaType: mediaType.VIDEO,
-        sourceType: source
+        sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM
     });
 
     function onPhotoURISuccess(imageURI) {
