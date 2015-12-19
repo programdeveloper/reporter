@@ -157,11 +157,11 @@ function showGallery(){
 
     function onPhotoURISuccess(imageURI) {
         path = imageURI;
-        window.resolveLocalFileSystemURL(imageURI, function(entry){
-            reportName =  Math.floor((Math.random() * 100000) + 1) + ".mp4";
-            }, function(e){
-                alert(e);
-            }); 
+        reportName =  Math.floor((Math.random() * 100000) + 1) + ".mp4";
+        // window.resolveLocalFileSystemURL(imageURI, function(entry){
+            // }, function(e){
+                // alert(e);/
+            // }); 
 
         if(!(localStorage.getItem("fullname") === null )){
             $('#reporter').val(localStorage.getItem("fullname"));
