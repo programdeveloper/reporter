@@ -22,10 +22,12 @@ var app = {
             $("#email").val(localStorage.getItem("email"));                   
         }
 
-        if(!(localStorage.getItem("mnetwork") === false)){
+        if(!(localStorage.getItem("mnetwork") === 'false')){
             $(".mnetwork").attr('checked','checked');
         }
-
+        if(localStorage.getItem("mnetwork") === null){
+            localStorage.setItem('mnetwork','false');
+        }
 
         pictureSource = navigator.camera.PictureSourceType;
         destinationType = navigator.camera.DestinationType;
@@ -40,14 +42,15 @@ var app = {
     
 setInterval(getPosts,100000);
 
-$('.mnetwork').change(function(){
-    if(!(localStorage.getItem("mnetwork") === false )){
-        localStorage.setItem("mnetwork",false);
+$('.mnetwork').click(function(){
+    if(!(localStorage.getItem("mnetwork") === 'false' )){
+        localStorage.setItem("mnetwork",'false');
     }
     else{
-        localStorage.setItem("mnetwork",true);
+        localStorage.setItem("mnetwork",'true');
     }
 
+    console.log(localStorage.getItem("mnetwork"));
 });
 
 $('.record').click(function(){
@@ -87,7 +90,7 @@ function sendReport(){
     localStorage.setItem("phone",phone);
     localStorage.setItem("email",email);
 
-    if(!(localStorage.getItem("mnetwork") === true )){
+    if((localStorage.getItem("mnetwork") === 'false'  ) && navigator.connection.type == 'wifi'){
        
     $('#loadingImg').css('display','block');
     var ft = new FileTransfer(),
@@ -307,3 +310,7 @@ function deleteM( test){
         }
     });
 }
+
+$("#homeLogo").click(function(){
+    app.initialize();
+});
