@@ -238,7 +238,7 @@ function getPosts(){
                 html+= '<div class="video">'+
     '<div class="video-image"><img src="'+item.thumb+'" alt=""></div>'+
     '<a href="#info'+item.id+'" data-rel="popup">'+
-    '<div class="video-title">'+item.description+' </div>'+
+    '<div class="video-title">'+item.title + "<br>" +item.description+' </div>'+
     '</a>'+
     '<div data-role="popup" id="info'+item.id+'" class="ui-content">'+
     '<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>'+
@@ -298,8 +298,8 @@ function getPosts(){
     });     
 };
 
-function deleteM( test){
-   
+
+function deleteM( test){   
     $.ajax({
         url: "http://stunettv.ge/admin/reporter/deleteM",
         type: "GET",
@@ -314,7 +314,7 @@ function deleteM( test){
             console.log('error occurred while deleting');
         }
     });
-    $('#myPopup'+test).popup("close");
+    $('#delete'+test).popup("close");
 }
 
 $("#homeLogo").click(function(){
