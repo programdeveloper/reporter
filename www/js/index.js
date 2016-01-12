@@ -27,7 +27,7 @@ var app = {
         }
 
         if(localStorage.getItem("mnetwork") == 'true'){
-            $(".mnetwork").attr('checked','checked');
+            $(".mnetwork").attr('checked',true);
         }
 
         pictureSource = navigator.camera.PictureSourceType;
@@ -46,11 +46,11 @@ setInterval(getPosts,10000);
 $('.mnetwork').click(function(){
     if(!(localStorage.getItem("mnetwork") == 'false' )){
         localStorage.setItem("mnetwork",'false');
-        $(".mnetwork").reomveAttr('checked');
+        $(".mnetwork").attr('checked',false);
     }
     else{
         localStorage.setItem("mnetwork",'true');
-        $(".mnetwork").attr('checked','checked');
+        $(".mnetwork").attr('checked',true);
     }
 
     console.log(localStorage.getItem("mnetwork"));
