@@ -1,146 +1,216 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Hello World</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, height=device-height" />
-    <link rel="stylesheet" href="css/themes/reporter.min.css" />
-    <link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />
-    <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css"/>
-    <link rel="stylesheet" type="text/css" href="css/index.css" /> 
-</head>
-<body>
-    <!-- start first page -->
-    <div data-role="page" id="home">
-      <div data-role="header">
-          <a href="#settings" data-transition="slide" data-icon="gear" data-iconpos="notext" data-corners="false" data-shadow="false"></a>
-          <h1> ჩემი რეპორტაჟები </h1>
-          <a onclick="showGallery()" data-icon="camera" data-iconpos="notext" data-corners="false" data-shadow="false"></a>
+   <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta charset="utf-8">
+      <link rel="stylesheet" href="mobile/jquery.mobile-1.4.5.min.css">
+      <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+      <script type="text/javascript" src="mobile/jquery.mobile-1.4.5.min.js"></script>
+      <link rel="stylesheet" href="style.css">
+      <title>main</title>
+   </head>
+   <body>
+      <div data-role="page" id="home" class="custom-page">
+         <div data-role="header" class="custom-header">
+            <a href="#nav-panel" class="custom-menu">
+               <div class="custom-menu-btn"></div>
+            </a>
+            <h1><img src="img/logo.png" alt=""> რეპორტიორი</h1>
+            <a onclick="showGallery()" class="ui-btn ui-icon-grid ui-btn-icon-notext ui-corner-all custom-home"></a>
+         </div>
+         <div data-role="main" class="ui-content custom-content posts">
+          <!-- content here -->
+            
+         </div>
+         <div data-role="panel" data-position-fixed="true" data-display="overlay" data-theme="a" id="nav-panel" class="custom-panel">
+            <label class="custom-menu-title">მენიუ</label>
+            <a href="#home" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-home custom-menu-item">მთავარი</a>
+            <a href="#profile" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-user custom-menu-item">პროფილი</a>
+            <a href="#about" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-info custom-menu-item">რეპორტიორის შესახებ</a>
+            <form>
+               <fieldset data-role="controlgroup" data-iconpos="left">
+                  <input type="checkbox" name="checkbox-h-6a" id="checkbox-h-6a">
+                  <label for="checkbox-h-6a" class="custom-menu-checkbox">მობილური ინტერნეტის შეზღუდვა</label>
+               </fieldset>
+            </form>
+         </div>
+         <a href="#" class="ui-btn ui-corner-all ui-icon-video ui-btn-icon-notext custom-record record">Record Icon</a>
       </div>
-      <div data-role="main" class="ui-content">
-        <ul class="posts">
-            მიმდინარეობს ჩატვირთვა ...
-        </ul>
-        <div class="record">
-          <a data-role="button" class="noBg" data-icon="video" data-corners="false" data-shadow="false"></a>          
-        </div>
-      </div>
-    </div> 
-    <!-- start parameters page -->
-    <div data-role="page" id="settings">
-      <div data-role="header">
-        <h1>პარამეტრები</h1>
-        <a href="#home" data-transition="slide" data-direction="reverse" data-icon="back" data-iconpos="notext" data-corners="false" data-shadow="false"></a>
-      </div>
-      <div data-role="main" class="ui-content">
-        <div class="ui-field-contain">
-          <form>
-            <div class="parameters">
-                <div class="ui-block-a">
-                   მობილური ინტერნეტის შეზღუდვა:
-                </div>
-                <div class="ui-block-b">
-                   <select name="flip-6" id="flipswitch" data-role="flipswitch">
-                        <option value="off">Off</option>
-                        <option value="on">On</option>
-                    </select>
-                </div>
-            </div><!-- /grid-a -->
-            <div class="parameters">
-                <a href="#profile" data-role="button" data-icon="user" data-corners="false" data-shadow="false">პროფილის რედაქტირება</a>
-            </div><!-- /grid-a -->
-            <div class="parameters">
-                <a href="#reporter" data-role="button" data-icon="video" data-corners="false" data-shadow="false">რეპორტიორი</a>
-            </div><!-- /grid-a -->
-          </form>
-        </div>
-      </div>
-    </div> 
-    <!-- start profile page -->
-    <div data-role="page" id="profile">
-      <div data-role="header">
-          <a href="#settings" data-transition="slide" data-icon="gear" data-iconpos="notext" data-corners="false" data-shadow="false"></a>
-          <h1> პროფილი </h1>
-          <a href="#home" data-icon="home" data-iconpos="notext" data-corners="false" data-shadow="false"></a>
-      </div>
-      <div data-role="main" class="ui-content">
-          <div class="ui-field-contain">
-            <label for="fullname">სახელი და გვარი:</label>
-            <input type="text" name="fullname" id="fullname" > <br>      
-            <label for="bday">საკონტაქტო ინფორმაცია </label>
-            <input type="number" name="phone" id="phone" placeholder="ტელეფონის ნომერი"/><br>
-            <input type="email" name="email" id="email" placeholder="ელ-ფოსტა">
-          </div>
-            <a onclick="SaveInfo()" data-role="button" data-icon="check" data-iconpos="left" data-corners="true" data-shadow="true">Save</a>
-      </div>
-    </div> 
-     <!-- start sendreport page -->
-    <div data-role="page" id="sendReport">
-      <div data-role="header">
-          <a href="#settings" data-transition="slide" data-icon="gear" data-iconpos="notext" data-corners="false" data-shadow="false"></a>
-          <h1> რეპორტაჟის გაგზავნა </h1>
-          <a href="#home" class="ui-btn-right" style="margin-right:30px;" data-icon="home" data-iconpos="notext" data-corners="false" data-shadow="false"></a>
-          <a onclick="sendReport()" class="ui-btn-right" data-icon="carat-d" data-iconpos="notext" data-corners="false" data-shadow="false"></a>
-      </div>
-      <div data-role="main" class="ui-content">
-        <!-- <video controls>
-          Your browser does not support HTML5 video.
-        </video> -->
-        <center> <img id="loadingImg" style="display:none;" src="loading.gif"></center>
-        <div id="succText" class="ui-field-contain">
-            <label for="reporter">რეპორტიორი:</label>
-            <input type="text" id="reporter" > <br>  
-            <label for="reportTitle">რეპორტაჟის დასახელება:</label>
-            <input type="text" id="reportTitle" placeholder="ჩაწერეთ რეპორტაჟის დასახელება" > <br>  
-            <label for="bday">საკონტაქტო ინფორმაცია </label>
-            <input type="number" id="reportPhone" placeholder="ტელეფონის ნომერი"/><br>
-            <input type="email" id="reportEmail" placeholder="ელ-ფოსტა">
-            <label>აღწერა (ოპციონალურია) </label>
-            <textarea name="description" id="reportdesc" placeholder="ჩაწერეთ რეპორტაჟის აღწერა"/></textarea>
-          </div>
-      </div>
-    </div> 
-    <!-- start reporter page -->
-    <div data-role="page" id="reporter">
-      <div data-role="header">
-          <a href="#settings" data-transition="slide" data-icon="gear" data-iconpos="notext" data-corners="false" data-shadow="false"></a>
-          <h1> რეპორტიორი </h1>
-          <a href="#home" class="ui-btn-right" data-icon="home" data-iconpos="notext" data-corners="false" data-shadow="false"></a>
-      </div>
-      <div data-role="main" class="ui-content">
-        <div class="ui-grid-solo">
-            <div class="ui-block-a text-center">
-              <img src="img/stunet.png">
+      <!-- profile -->
+      <div data-role="page" id="profile" class="custom-page">
+         <div data-role="header" class="custom-header">
+            <a href="#nav-panel1" class="custom-menu">
+               <div class="custom-menu-btn"></div>
+            </a>
+            <h1><img src="img/logo.png" alt=""> რეპორტიორი</h1>
+            <a href="#" class="ui-btn ui-icon-grid ui-btn-icon-notext ui-corner-all custom-home"></a>
+         </div>
+         <div data-role="main" class="ui-content custom-content">
+            <div class="custom-profile">
+               <label class="ui-accessible custom-label">პროფილის რედაქტირება</label>
+               <label for="textinput-4" class="ui-accessible">სახელი და გვარი:</label>
+               <input id="fullname" type="text" name="textinput-4" placeholder="ჩაწერეთ სახელი და გვარი" value="">
+               <label class="ui-accessible">საკონტაქტო ინფორმაცია:</label>
+               <input id="phone" type="text" name="textinput-5" placeholder="ტელეფონის ნომერი" value="">
+               <input id="email" type="text" name="textinput-6" placeholder="ელ. ფოსტა" value="">
+               <a onclick="SaveInfo()" class="ui-btn ui-icon-check ui-btn-icon-left custom-save">შენახვა</a>
             </div>
-        </div>
-        <h3 class="ui-bar ui-bar-a ui-corner-all text-center">რეპორტიორი</h3><br><br>
-        <div class="ui-body ui-body-a ui-corner-all">
-            <p>სტუნეტ რეპორტიორი საშუალებას გაძლევთ შეთხვევით ან დაგეგმილად წარმოქმნილი საინტერესო სიტუაცია გადაიღოთ სმარტფონის ვიდეო კამერით და უმოკლეს დროში გაუზიაროთ ათასობით მომხმარებელს stunet.ge-ზე, facebook.com-სა და youtube.com-ზე.</p>
-        </div>
+         </div>
+         <div data-role="panel" data-position-fixed="true" data-display="overlay" data-theme="a" id="nav-panel1" class="custom-panel">
+            <label class="custom-menu-title">მენიუ</label>
+            <a href="#home" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-home custom-menu-item">მთავარი</a>
+            <a href="#profile" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-user custom-menu-item">პროფილი</a>
+            <a href="#about" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-info custom-menu-item">რეპორტიორის შესახებ</a>
+            <form>
+               <fieldset data-role="controlgroup" data-iconpos="left">
+                  <input type="checkbox" name="checkbox-h-6a" id="checkbox-h-6f">
+                  <label for="checkbox-h-6f" class="custom-menu-checkbox">მობილური ინტერნეტის შეზღუდვა</label>
+               </fieldset>
+            </form>
+         </div>
       </div>
+      <!-- end profile -->
+      <!-- about -->
+      <div data-role="page" id="about" class="custom-page">
+         <div data-role="header" class="custom-header">
+            <a href="#nav-panel2" class="custom-menu">
+               <div class="custom-menu-btn"></div>
+            </a>
+            <h1><img src="img/logo.png" alt=""> რეპორტიორი</h1>
+            <a href="#" class="ui-btn ui-icon-grid ui-btn-icon-notext ui-corner-all custom-home"></a>
+         </div>
+         <div data-role="main" class="ui-content custom-content">
+            <div class="custom-about">
+               <img src="img/logo1.png" class="custom-logo">
+               <h1>რეპორტიორი</h1>
+               <p>ტექსტი აპლიაციის შესახებ იწერება იმისთვის, რომ გასაგები იყოს აპლიკაციის მეზანი, შინაარსი, იდეა და ასე შემდეგ. ეს საჭიროა, რატა ადგილი აქ შევსებულუი უნდა იყოს. ტექსტი აპლიაციის შესახებ იწერება იმისთვის, რომ გასაგები იყოს აპლიკაციის მეზანი, შინაარსი, იდეა და ასე შემდეგ. ეს საჭიროა, რატა ადგილი აქ შევსებულუი უნდა იყოს.
+                  ტექსტი აპლიაციის შესახებ იწერება იმისთვის, რომ გასაგები იყოს აპლიკაციის მეზანი, შინაარსი, იდეა და ასე შემდეგ. ეს საჭიროა, რატა ადგილი აქ შევსებულუი უნდა იყოს.
+                  ტექსტი აპლიაციის შესახებ იწერება იმისთვის, რომ გასაგები იყოს აპლიკაციის მეზანი, შინაარსი, იდეა და ასე შემდეგ. ეს საჭიროა, რატა ადგილი აქ შევსებულუი უნდა იყოს.
+                  ტექსტი აპლიაციის შესახებ იწერება იმისთვის, რომ გასაგები იყოს აპლიკაციის მეზანი, შინაარსი, იდეა და ასე შემდეგ. ეს საჭიროა, რატა ადგილი აქ შევსებულუი უნდა იყოს.
+               </p>
+            </div>
+         </div>
+         <div data-role="panel" data-position-fixed="true" data-display="overlay" data-theme="a" id="nav-panel2" class="custom-panel">
+            <label class="custom-menu-title">მენიუ</label>
+            <a href="#home" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-home custom-menu-item">მთავარი</a>
+            <a href="#profile" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-user custom-menu-item">პროფილი</a>
+            <a href="#about" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-info custom-menu-item">რეპორტიორის შესახებ</a>
+            <form>
+               <fieldset data-role="controlgroup" data-iconpos="left">
+                  <input type="checkbox" name="checkbox-h-6a" id="checkbox-h-6b">
+                  <label for="checkbox-h-6b" class="custom-menu-checkbox">მობილური ინტერნეტის შეზღუდვა</label>
+               </fieldset>
+            </form>
+         </div>
+      </div>
+      <!-- end about -->
+      <!-- send 1 -->
+      <div data-role="page" id="senderror" class="custom-page">
+         <div data-role="header" class="custom-header">
+            <a href="#nav-panel3" class="custom-menu">
+               <div class="custom-menu-btn"></div>
+            </a>
+            <h1><img src="img/logo.png" alt=""> რეპორტიორი</h1>
+            <a href="#" class="ui-btn ui-icon-grid ui-btn-icon-notext ui-corner-all custom-home"></a>
+         </div>
+         <div data-role="main" class="ui-content custom-content">
+            <div class="custom-sent">
+               <img src="img/image.png">
+               <p>რეპორტაჟის გაგზავნის დროს დაფიქსირდა შეცდომა!
+                  სცადეთ კიდევ ერთხელ მოგვიანებით.
+               </p>
+               <img src="img/logo1.png" class="custom-logo">
+            </div>
+         </div>
+         <div data-role="panel" data-position-fixed="true" data-display="overlay" data-theme="a" id="nav-panel3" class="custom-panel">
+            <label class="custom-menu-title">მენიუ</label>
+            <a href="#home" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-home custom-menu-item">მთავარი</a>
+            <a href="#profile" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-user custom-menu-item">პროფილი</a>
+            <a href="#about" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-info custom-menu-item">რეპორტიორის შესახებ</a>
+            <form>
+               <fieldset data-role="controlgroup" data-iconpos="left">
+                  <input type="checkbox" name="checkbox-h-6a" id="checkbox-h-6c">
+                  <label for="checkbox-h-6c" class="custom-menu-checkbox">მობილური ინტერნეტის შეზღუდვა</label>
+               </fieldset>
+            </form>
+         </div>
+      </div>
+      <!-- end send 1 -->
+      <!-- send 2 -->
+      <div data-role="page" id="sendsuccess" class="custom-page">
+         <div data-role="header" class="custom-header">
+            <a href="#nav-panel4" class="custom-menu">
+               <div class="custom-menu-btn"></div>
+            </a>
+            <h1><img src="img/logo.png" alt=""> რეპორტიორი</h1>
+            <a href="#" class="ui-btn ui-icon-grid ui-btn-icon-notext ui-corner-all custom-home"></a>
+         </div>
+         <div data-role="main" class="ui-content custom-content">
+            <div class="custom-sent">
+               <img src="img/image.png" alt="">
+               <p>რეპორტაჟი გაიგზავნა წარმატებით!
+                  მისი stunettv.ge-ზე პუბლიკაციის ან არა პუბლიკაციის შემთხვევაში თქვენ მიღებთ შეტყობინებას.
+               </p>
+               <img src="img/logo1.png" class="custom-logo" alt="">
+            </div>
+         </div>
+         <div data-role="panel" data-position-fixed="true" data-display="overlay" data-theme="a" id="nav-panel4" class="custom-panel">
+            <label class="custom-menu-title">მენიუ</label>
+            <a href="#home" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-home custom-menu-item">მთავარი</a>
+            <a href="#profile" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-user custom-menu-item">პროფილი</a>
+            <a href="#about" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-info custom-menu-item">რეპორტიორის შესახებ</a>
+            <form>
+               <fieldset data-role="controlgroup" data-iconpos="left">
+                  <input type="checkbox" name="checkbox-h-6a" id="checkbox-h-6d">
+                  <label for="checkbox-h-6d" class="custom-menu-checkbox">მობილური ინტერნეტის შეზღუდვა</label>
+               </fieldset>
+            </form>
+         </div>
+      </div>
+      <!-- end send 2 -->
+      <!-- submit -->
+      <div data-role="page" id="sendReport" class="custom-page">
+         <div data-role="header" class="custom-header">
+            <a href="#nav-panel5" class="custom-menu">
+               <div class="custom-menu-btn"></div>
+            </a>
+            <h1><img src="img/logo.png" alt=""> რეპორტიორი</h1>
+            <a href="#" class="ui-btn ui-icon-grid ui-btn-icon-notext ui-corner-all custom-home"></a>
+         </div>
+         <div data-role="main" class="ui-content custom-content">
+            <div class="custom-profile">
+               <label for="textinput-4" class="ui-accessible">რეპორტიორი:</label>
+               <input type="text" name="textinput-4" id="reporter" placeholder="ჩაწერეთ სახელი და გვარი" value="">
+               <label for="textinput-7" class="ui-accessible">რეპორტაჟის დასახელება:</label>
+               <input type="text" name="textinput-7" id="reportTitle" placeholder="ჩაწერეთ დასახელება" value="">
+               <label class="ui-accessible">საკონტაქტო ინფორმაცია:</label>
+               <input type="text" name="textinput-5" id="reportPhone" placeholder="ტელეფონის ნომერი" value="">
+               <input type="text" name="textinput-6" id="reportEmail" placeholder="ელ. ფოსტა" value="">
+               <label for="textarea-2">აღწერა:</label>
+               <textarea cols="40" rows="8" name="textarea-2" id="reportdesc" placeholder="ჩაწერეთ რეპორტაჟის აღწერა"></textarea>
+               <a onclick="sendReport()" class="ui-btn ui-icon-check ui-btn-icon-left custom-save">ატვირთვა</a>
+            </div>
+         </div>
+         <div data-role="panel" data-position-fixed="true" data-display="overlay" data-theme="a" id="nav-panel5" class="custom-panel">
+            <label class="custom-menu-title">მენიუ</label>
+            <a href="#home" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-home custom-menu-item">მთავარი</a>
+            <a href="#profile" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-user custom-menu-item">პროფილი</a>
+            <a href="#about" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-info custom-menu-item">რეპორტიორის შესახებ</a>
+            <form>
+               <fieldset data-role="controlgroup" data-iconpos="left">
+                  <input type="checkbox" name="checkbox-h-6a" id="checkbox-h-6e">
+                  <label for="checkbox-h-6e" class="custom-menu-checkbox">მობილური ინტერნეტის შეზღუდვა</label>
+               </fieldset>
+            </form>
+         </div>
+      </div>
+      <!-- end submit -->
 
-    </div> 
-
-    <script src="js/jquery-1.11.3.min.js"></script>
-    <script src="js/jquery.mobile-1.4.5.min.js"></script>
+    
     <script type="text/javascript" src="phonegap.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript">
         app.initialize();
     </script>
-
-    <script>
-    /*!
-     * jQuery.ellipsis
-     */
-    (function(a){if(typeof define==="function"&&define.amd){define(["jquery"],a)}else{a(jQuery)}}(function(d){var c="ellipsis",b='<span style="white-space: nowrap;">',e={lines:"auto",ellipClass:"ellip",responsive:false};function a(h,q){var m=this,w=0,g=[],k,p,i,f,j,n,s;m.$cont=d(h);m.opts=d.extend({},e,q);function o(){m.text=m.$cont.text();m.opts.ellipLineClass=m.opts.ellipClass+"-line";m.$el=d('<span class="'+m.opts.ellipClass+'" />');m.$el.text(m.text);m.$cont.empty().append(m.$el);t()}function t(){if(typeof m.opts.lines==="number"&&m.opts.lines<2){m.$el.addClass(m.opts.ellipLineClass);return}n=m.$cont.height();if(m.opts.lines==="auto"&&m.$el.prop("scrollHeight")<=n){return}if(!k){return}s=d.trim(m.text).split(/\s+/);m.$el.html(b+s.join("</span> "+b)+"</span>");m.$el.find("span").each(k);if(p!=null){u(p)}}function u(x){s[x]='<span class="'+m.opts.ellipLineClass+'">'+s[x];s.push("</span>");m.$el.html(s.join(" "))}if(m.opts.lines==="auto"){var r=function(y,A){var x=d(A),z=x.position().top;j=j||x.height();if(z===f){g[w].push(x)}else{f=z;w+=1;g[w]=[x]}if(z+j>n){p=y-g[w-1].length;return false}};k=r}if(typeof m.opts.lines==="number"&&m.opts.lines>1){var l=function(y,A){var x=d(A),z=x.position().top;if(z!==f){f=z;w+=1}if(w===m.opts.lines){p=y;return false}};k=l}if(m.opts.responsive){var v=function(){g=[];w=0;f=null;p=null;m.$el.html(m.text);clearTimeout(i);i=setTimeout(t,100)};d(window).on("resize."+c,v)}o()}d.fn[c]=function(f){return this.each(function(){try{d(this).data(c,(new a(this,f)))}catch(g){if(window.console){console.error(c+": "+g)}}})}}));
-
-    $(function() {
-        $('.ellipsis').ellipsis({ responsive: true });
-    });
-    </script>
-
-
-</body>
+   </body>
 </html>
-
