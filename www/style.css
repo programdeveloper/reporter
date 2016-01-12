@@ -34,11 +34,13 @@ body { font-family: 'Ingiri'; }
 .video-image img { width: 80px; height: 72px;}
 .video-title { padding: 2%; font-size: 12px; color: #333; float: left; width: 60%; height: 58px; }
 .video-params {  border-left: 2px solid #dfdfe4; float: right; width: 10%; height: 72px; }
-.custom-gear, .custom-clock, .custom-no, .custom-check, .custom-alert { width: 100%!important; margin: 4px 0!important;}
+.custom-gear, .custom-clock, .custom-no, .custom-locked,.custom-bullet, .custom-check, .custom-alert { width: 100%!important; margin: 4px 0!important;}
 .custom-clock:after { background-color: #edaa2a; }
 .custom-gear:after { background-color: #444; }
 .custom-no:after { background-color: #999; }
 .custom-check:after { background-color: #45ca3f; }
+.custom-bullet:after { background-color: yellow; }
+.custom-locked:after { background-color: #FF0000; }
 .custom-alert:after { background-color: #f55f5f; }
 .custom-page { background-color: #eaeaee!important;}
 .custom-sent { width: 100%; } 

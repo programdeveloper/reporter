@@ -22,7 +22,7 @@ var app = {
             $("#email").val(localStorage.getItem("email"));                   
         }
 
-        if(!(localStorage.getItem("mnetwork") === 'false')){
+        if(localStorage.getItem("mnetwork") === 'true'){
             $(".mnetwork").attr('checked','checked');
         }
         if(localStorage.getItem("mnetwork") === null){
@@ -40,14 +40,16 @@ var app = {
     }
 };
     
-setInterval(getPosts,100000);
+setInterval(getPosts,10000);
 
 $('.mnetwork').click(function(){
     if(!(localStorage.getItem("mnetwork") === 'false' )){
         localStorage.setItem("mnetwork",'false');
+        $(".mnetwork").reomveAttr('checked');
     }
     else{
         localStorage.setItem("mnetwork",'true');
+        $(".mnetwork").attr('checked','checked');
     }
 
     console.log(localStorage.getItem("mnetwork"));
@@ -251,7 +253,7 @@ function getPosts(){
     '<a onclick="deleteM('+item.id+')" class="ui-btn ui-icon-check ui-btn-icon-left custom-save">დიახ</a>'+
     '</div>';
     if(item.status==0)
-        html+='<a href="#myPopup'+item.id+'" data-rel="popup" class="ui-btn ui-corner-all ui-icon-check ui-btn-icon-notext custom-check"></a>'+
+        html+='<a href="#myPopup'+item.id+'" data-rel="popup" class="ui-btn ui-corner-all ui-icon-clock ui-btn-icon-notext custom-bullet"></a>'+
     '<div data-role="popup" id="myPopup'+item.id+'" class="ui-content">'+
     '<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>'+
     '<p>'+'რეპორტაჟი დამტკიცების მოლოდინშია.<br>გაგზავნის თარიღი :' + item.receive_date + '</p>'+
@@ -263,7 +265,7 @@ function getPosts(){
     '<p>'+item.receive_date + "/" + item.post_date + '<br> რეპორტაჟის ნახვა <a href="'+item.stunet_url+'">stunettv.ge</a>-ზე' + '</p>'+
     '</div>';
     if(item.status==2)
-         html+='<a href="#myPopup'+item.id+'" data-rel="popup" class="ui-btn ui-corner-all ui-icon-check ui-btn-icon-notext custom-check"></a>'+
+         html+='<a href="#myPopup'+item.id+'" data-rel="popup" class="ui-btn ui-corner-all ui-icon-forbidden ui-btn-icon-notext custom-locked"></a>'+
     '<div data-role="popup" id="myPopup'+item.id+'" class="ui-content">'+
     '<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>'+
     '<p> რეპორტაჟი არ იყო დამტკიცებული ადმინისტრატორის მიერ. <br> მიზეზი: ' +item.reason + '</p>'+
@@ -314,4 +316,5 @@ function deleteM( test){
 
 $("#homeLogo").click(function(){
     app.initialize();
+    getPosts();
 });
