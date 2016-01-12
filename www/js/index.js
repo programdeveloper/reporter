@@ -140,7 +140,7 @@ function sendReport(){
                 );
             }
             $('#loadingImg').css('display','none');
-            $.mobile.changePage('#sendsuccess',{reverse:false,transition: "slide"});
+            $.mobile.changePage('#senderror',{reverse:false,transition: "slide"});
             setInterval(function(){
                 document.location = "index.html";
             },10000);
@@ -165,7 +165,7 @@ function sendReport(){
             null,         // callback
             'შეცდომა!!!',            // title
             'დახურვა'                  // buttonName
-        );
+        ); 
     }
 }
 
@@ -269,7 +269,7 @@ function getPosts(){
          html+='<a href="#myPopup'+item.id+'" data-rel="popup" class="ui-btn ui-corner-all ui-icon-forbidden ui-btn-icon-notext custom-locked"></a>'+
     '<div data-role="popup" id="myPopup'+item.id+'" class="ui-content">'+
     '<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>'+
-    '<p> რეპორტაჟი არ იყო დამტკიცებული ადმინისტრატორის მიერ. <br> მიზეზი: ' +item.reason + '</p>'+
+    '<p>ვიდეო დაიბლოკა ადმინისტრატორის მიერ. <br> მიზეზი: ' +item.reason + '</p>'+
     '</div>';
    
     
@@ -299,6 +299,7 @@ function getPosts(){
 };
 
 function deleteM( test){
+   
     $.ajax({
         url: "http://stunettv.ge/admin/reporter/deleteM",
         type: "GET",
@@ -313,6 +314,7 @@ function deleteM( test){
             console.log('error occurred while deleting');
         }
     });
+    $('#myPopup'+test).popup("close");
 }
 
 $("#homeLogo").click(function(){
