@@ -93,7 +93,7 @@ function sendReport(){
     localStorage.setItem("phone",phone);
     localStorage.setItem("email",email);
 
-    if((localStorage.getItem("mnetwork") == 'true'  && navigator.connection.type == 'wifi') || (localStorage.getItem("mnetwork") == 'false'  && navigator.connection.type != 'wifi') ){
+    if((localStorage.getItem("mnetwork") == 'false'  && navigator.connection.type == 'wifi') || (localStorage.getItem("mnetwork") == 'true'  && navigator.connection.type != 'wifi') ){
        
     $('#loadingImg').css('display','block');
     var ft = new FileTransfer(),
