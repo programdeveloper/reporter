@@ -34,13 +34,13 @@
     <gap:plugin source="npm" name="org.apache.cordova.dialogs" />
     <gap:plugin source="npm" name="org.apache.cordova.file" />
     <gap:plugin source="npm" name="org.apache.cordova.file-transfer" />
-    <gap:plugin source="npm" name="org.apache.cordova.geolocation" />
+    <!-- <gap:plugin source="npm" name="org.apache.cordova.geolocation" /> -->
     <gap:plugin source="npm" name="org.apache.cordova.globalization" />
     <gap:plugin source="npm" name="org.apache.cordova.inappbrowser" />
     <gap:plugin source="npm" name="org.apache.cordova.media" />
     <gap:plugin source="npm" name="org.apache.cordova.network-information" />
     <gap:plugin source="npm" name="org.apache.cordova.splashscreen" />
-    <gap:plugin source="npm" name="org.apache.cordova.vibration" />
+    <!-- <gap:plugin source="npm" name="org.apache.cordova.vibration" /> -->
     <icon src="img/stunet.png" />
     <access origin="*" />
     <plugin name="cordova-plugin-whitelist" version="1" />

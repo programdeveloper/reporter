@@ -9,6 +9,7 @@ var app = {
     },
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
+        document.addEventListener("backbutton", this.backKeyDown, true);
     },
     onDeviceReady: function() {
         if(!(localStorage.getItem("fullname") === null )){
@@ -21,17 +22,33 @@ var app = {
             $("#email").val(localStorage.getItem("email"));                   
         }
 
+        if(!(localStorage.getItem("mnetwork") === false)){
+            $(".mnetwork").attr('checked','checked');
+        }
+
+
         pictureSource = navigator.camera.PictureSourceType;
         destinationType = navigator.camera.DestinationType;
         mediaType = navigator.camera.MediaType;
 
         getPosts();
+    },
+    backKeyDown: function(){
+        navigator.app.exitApp();
     }
 };
     
 setInterval(getPosts,100000);
 
+$('.mnetwork').change(function(){
+    if(!(localStorage.getItem("mnetwork") === false )){
+        localStorage.setItem("mnetwork",false);
+    }
+    else{
+        localStorage.setItem("mnetwork",true);
+    }
 
+});
 
 $('.record').click(function(){
     // capture callback
@@ -70,7 +87,8 @@ function sendReport(){
     localStorage.setItem("phone",phone);
     localStorage.setItem("email",email);
 
-    
+    if(!(localStorage.getItem("mnetwork") === true )){
+       
     $('#loadingImg').css('display','block');
     var ft = new FileTransfer(),
     name = reportName;
@@ -133,6 +151,15 @@ function sendReport(){
         );
     }
     
+    }
+    else{
+        navigator.notification.alert(
+            'მობილური ინტერნეტით ატვირთვა შეზღუდულია. გთხოვთ ჩართოთ WiFi.',  // message
+            null,         // callback
+            'შეცდომა!!!',            // title
+            'დახურვა'                  // buttonName
+        );
+    }
 }
 
 function SaveInfo(){
@@ -181,7 +208,7 @@ function showGallery(){
         $.mobile.changePage('#sendReport',{reverse:false,transition: "slide"});
     }
     function onFail(message) {
-         alert('Failed because: ' + message);
+         console.log('Failed because: ' + message);
     }
 }
 
@@ -219,12 +246,27 @@ function getPosts(){
     '<p>ნამდვილად გსურთ რეპორტაჟის წაშლა?</p>'+
     '<a onclick="deleteM('+item.id+')" class="ui-btn ui-icon-check ui-btn-icon-left custom-save">დიახ</a>'+
     '</div>';
-    html+='<a href="#myPopup'+item.id+'" data-rel="popup" class="ui-btn ui-corner-all ui-icon-check ui-btn-icon-notext custom-check"></a>'+
+    if(item.status==0)
+        html+='<a href="#myPopup'+item.id+'" data-rel="popup" class="ui-btn ui-corner-all ui-icon-check ui-btn-icon-notext custom-check"></a>'+
     '<div data-role="popup" id="myPopup'+item.id+'" class="ui-content">'+
     '<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>'+
-    '<p>'+item.reason+'</p>'+
-    '</div>'+
-    '</div>'+
+    '<p>'+'რეპორტაჟი დამტკიცების მოლოდინშია.<br>გაგზავნის თარიღი :' + item.receive_date + '</p>'+
+    '</div>';
+    if(item.status==1)
+        html+='<a href="#myPopup'+item.id+'" data-rel="popup" class="ui-btn ui-corner-all ui-icon-check ui-btn-icon-notext custom-check"></a>'+
+    '<div data-role="popup" id="myPopup'+item.id+'" class="ui-content">'+
+    '<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>'+
+    '<p>'+item.receive_date + "/" + item.post_date + '<br> რეპორტაჟის ნახვა <a href="'+item.stunet_url+'">stunettv.ge</a>-ზე' + '</p>'+
+    '</div>';
+    if(item.status==2)
+         html+='<a href="#myPopup'+item.id+'" data-rel="popup" class="ui-btn ui-corner-all ui-icon-check ui-btn-icon-notext custom-check"></a>'+
+    '<div data-role="popup" id="myPopup'+item.id+'" class="ui-content">'+
+    '<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>'+
+    '<p> რეპორტაჟი არ იყო დამტკიცებული ადმინისტრატორის მიერ. <br> მიზეზი: ' +item.reason + '</p>'+
+    '</div>';
+   
+    
+    html+= '</div>'+
     '</div>';           
 
             });  
