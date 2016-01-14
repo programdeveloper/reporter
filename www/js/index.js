@@ -22,13 +22,13 @@ var app = {
             $("#email").val(localStorage.getItem("email"));                   
         }
 
-        if(localStorage.getItem("mnetwork") === null){
-            localStorage.setItem('mnetwork','false');
-        }
+        // if(localStorage.getItem("mnetwork") === null){
+        //     localStorage.setItem('mnetwork','false');
+        // }
 
-        if(localStorage.getItem("mnetwork") == 'true'){
-            $(".mnetwork").attr('checked',true);
-        }
+        // if(localStorage.getItem("mnetwork") == 'true'){
+        //     $(".mnetwork").attr('checked',true);
+        // }
 
         pictureSource = navigator.camera.PictureSourceType;
         destinationType = navigator.camera.DestinationType;
@@ -43,18 +43,18 @@ var app = {
     
 setInterval(getPosts,10000);
 
-$('.mnetwork').click(function(){
-    if(!(localStorage.getItem("mnetwork") == 'false' )){
-        localStorage.setItem("mnetwork",'false');
-        $(".mnetwork").attr('checked',false);
-    }
-    else{
-        localStorage.setItem("mnetwork",'true');
-        $(".mnetwork").attr('checked',true);
-    }
+// $('.mnetwork').click(function(){
+//     if(!(localStorage.getItem("mnetwork") == 'false' )){
+//         localStorage.setItem("mnetwork",'false');
+//         $(".mnetwork").attr('checked',false);
+//     }
+//     else{
+//         localStorage.setItem("mnetwork",'true');
+//         $(".mnetwork").attr('checked',true);
+//     }
 
-    console.log(localStorage.getItem("mnetwork"));
-});
+//     console.log(localStorage.getItem("mnetwork"));
+// });
 
 $('.record').click(function(){
     // capture callback
@@ -63,7 +63,8 @@ $('.record').click(function(){
         for (i = 0, len = mediaFiles.length; i < len; i += 1) {
             path = mediaFiles[i].fullPath;
             reportName = mediaFiles[i].name;
-            
+            size = mediaFiles[i].size;
+            console.log(size);
             if(!(localStorage.getItem("fullname") === null )){
                 $('#reporter').val(localStorage.getItem("fullname"));
             }
@@ -93,7 +94,7 @@ function sendReport(){
     localStorage.setItem("phone",phone);
     localStorage.setItem("email",email);
 
-    if((localStorage.getItem("mnetwork") == 'false'  && navigator.connection.type == 'wifi') || (localStorage.getItem("mnetwork") == 'true'  && navigator.connection.type != 'wifi') ){
+    // if((localStorage.getItem("mnetwork") == 'false'  && navigator.connection.type == 'wifi') || (localStorage.getItem("mnetwork") == 'true'  && navigator.connection.type != 'wifi') ){
        
     $('#loadingImg').css('display','block');
     var ft = new FileTransfer(),
@@ -158,15 +159,15 @@ function sendReport(){
         $('#loadingImg').css('display','none');
     }
     
-    }
-    else{
-        navigator.notification.alert(
-            'მობილური ინტერნეტით ატვირთვა შეზღუდულია. გთხოვთ ჩართოთ WiFi.',  // message
-            null,         // callback
-            'შეცდომა!!!',            // title
-            'დახურვა'                  // buttonName
-        ); 
-    }
+    // }
+    // else{
+    //     navigator.notification.alert(
+    //         'მობილური ინტერნეტით ატვირთვა შეზღუდულია. გთხოვთ ჩართოთ WiFi.',  // message
+    //         null,         // callback
+    //         'შეცდომა!!!',            // title
+    //         'დახურვა'                  // buttonName
+    //     ); 
+    // }
 }
 
 function SaveInfo(){
@@ -197,6 +198,8 @@ function showGallery(){
 
     function onPhotoURISuccess(imageURI) {
         path = imageURI;
+        size = imageURI.size;
+        console.log(imageURI);
         reportName =  Math.floor((Math.random() * 100000) + 1) + ".mp4";
         // window.resolveLocalFileSystemURL(imageURI, function(entry){
             // }, function(e){
