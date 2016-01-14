@@ -64,7 +64,9 @@ $('.record').click(function(){
             path = mediaFiles[i].fullPath;
             reportName = mediaFiles[i].name;
             size = mediaFiles[i].size;
-            console.log(size);
+            size = (size/1024/1024).toFixed(2);
+            // console.log(size);
+            $("#size").html("ასატვირთი ვიდეოს მაქსიმალური ზომა არის 1024 MB. თქვენი ვიდეოს ზომა არის " + size + " MB");
             if(!(localStorage.getItem("fullname") === null )){
                 $('#reporter').val(localStorage.getItem("fullname"));
             }
@@ -198,7 +200,12 @@ function showGallery(){
 
     function onPhotoURISuccess(imageURI) {
         path = imageURI;
-        size = imageURI.size;
+        window.resolveLocalFileSystemURI(imageURI, function(fileEntry) {
+            fileEntry.file(function(fileObj) {
+                size = (fileObj.size/1024/1024).toFixed(2);
+                $("#size").html("ასატვირთი ვიდეოს მაქსიმალური ზომა არის 1024 MB. თქვენი ვიდეოს ზომა არის " + size + " MB");
+            });
+        });
         console.log(imageURI);
         reportName =  Math.floor((Math.random() * 100000) + 1) + ".mp4";
         // window.resolveLocalFileSystemURL(imageURI, function(entry){
