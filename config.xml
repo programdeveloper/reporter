@@ -40,7 +40,6 @@
     <gap:plugin source="npm" name="org.apache.cordova.media" />
     <gap:plugin source="npm" name="org.apache.cordova.network-information" />
     <gap:plugin source="npm" name="org.apache.cordova.splashscreen" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <!-- <gap:plugin source="npm" name="org.apache.cordova.vibration" /> -->
     <icon src="img/stunet.png" />
     <access origin="*" />
@@ -53,6 +52,9 @@
     <allow-intent href="geo:*" />
     <platform name="android">
         <allow-intent href="market:*" />
+        <config-file target="AndroidManifest.xml" parent="/*">
+           <uses-permission android:name="android.permission.READ_CALENDAR" />
+        </config-file>              
     </platform>
     <platform name="winphone|wp8" />
     <platform name="ios">
