@@ -240,7 +240,7 @@ function getPosts(){
         }),
         success: function(data) {
         if(data.length==0){
-            html += "<center> თქვენ არ გაქვთ არცერთი გაგზავნილი რეპორტაჟი. პირველი რეპორტაჟის გადასაღებად დააჭირეთ ქვევით მოცემულ ღილაკს. </center>";
+            html += "<center><p style='margin-top:10px;'> თქვენ არ გაქვთ არცერთი გაგზავნილი რეპორტაჟი. პირველი რეპორტაჟის გადასაღებად დააჭირეთ ქვევით მოცემულ ღილაკს. </p></center>";
         }
         else{
             $.each(data, function(i, item) {
@@ -302,7 +302,7 @@ function getPosts(){
             // });
         },
         error: function(e,b,k) {
-            var html = "გაგზავნილი რეპორტაჟების სანახავად გთხოვთ ჩართოთ ინტერნეტი.";
+            var html = "<center><p style='margin-top:10px;'>გაგზავნილი რეპორტაჟების სანახავად გთხოვთ ჩართოთ ინტერნეტი.</p></center>";
             $('.posts').html(html);
         }
     });     
