@@ -65,7 +65,7 @@ $('.record').click(function(){
             reportName = mediaFiles[i].name;
             size = mediaFiles[i].size;
             size = (size/1024/1024).toFixed(2);
-            // console.log(size);
+            
             $("#size").html("აპლიკაციის საშუალებით შესაძლებალია აიტვირთოს მაქსიმუმ 1 GB მოცულობის ვიდეო. თვენი ვიდოეს მოულობაა " + size + " MB");
             if(!(localStorage.getItem("fullname") === null )){
                 $('#reporter').val(localStorage.getItem("fullname"));
@@ -101,7 +101,7 @@ function sendReport(){
     $('#loadingImg').css('display','block');
     var ft = new FileTransfer(),
     name = reportName;
-    if(fullname && title && phone){
+    if(fullname && title && phone && email){
         ft.upload(
         path,
         "http://stunettv.ge/admin/reporter/uploadfile",
@@ -200,6 +200,7 @@ function showGallery(){
 
     function onPhotoURISuccess(imageURI) {
         path = imageURI;
+        console.log(imageURI);
         window.resolveLocalFileSystemURL(imageURI, function(fileEntry) {
             fileEntry.file(function(fileObj) {
                 size = (fileObj.size/1024/1024).toFixed(2);
@@ -327,7 +328,7 @@ function deleteM( test){
     $('#delete'+test).popup("close");
 }
 
-$("#homeLogo").click(function(){
+$("#homeLogo , .ui-icon-home").click(function(){
     app.initialize();
     getPosts();
 });

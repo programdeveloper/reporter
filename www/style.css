@@ -58,3 +58,4 @@ body { font-family: 'Ingiri'; }
 .custom-about { width: 100%; } 
 .custom-about h1 { font-family: "Nino"; letter-spacing: 2px; font-size: 20px; text-align: center; }
 .custom-about p { line-height: 1.4!important; text-align: justify; padding: 0 20px; color: #333!important; }
+#homehref{text-decoration: none; color: white !important;}
