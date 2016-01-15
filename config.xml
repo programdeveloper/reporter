@@ -28,7 +28,6 @@
     <gap:plugin source="npm" name="org.apache.cordova.media-capture" />
     <gap:plugin source="npm" name="org.apache.cordova.console" />
     <!-- <gap:plugin source="npm" name="org.apache.cordova.contacts" /> -->
-    <gap:plugin source="npm" name="com.hiddentao.cordova.filepath" />
     <gap:plugin source="npm" name="org.apache.cordova.device" />
     <gap:plugin source="npm" name="org.apache.cordova.device-motion" />
     <gap:plugin source="npm" name="org.apache.cordova.device-orientation" />
