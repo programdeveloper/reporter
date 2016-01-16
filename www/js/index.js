@@ -239,6 +239,10 @@ function getPosts(){
         data: ({
             device: device.uuid
         }),
+        beforeSend: function() {
+            var loadingvar = '<center><img id="loadingImg" src="loading.gif"></center>';
+             $('.posts').html(loadingvar);
+        },
         success: function(data) {
         if(data.length==0){
             html += "<center><p style='margin-top:10px;'> თქვენ არ გაქვთ არცერთი გაგზავნილი რეპორტაჟი. პირველი რეპორტაჟის გადასაღებად დააჭირეთ ქვევით მოცემულ ღილაკს. </p></center>";
@@ -329,6 +333,7 @@ function deleteM( test){
 }
 
 $("#homeLogo , .ui-icon-home").click(function(){
-    app.initialize();
+    $("#nav-panel").panel('close');
     getPosts();
+    // app.initialize();
 });
