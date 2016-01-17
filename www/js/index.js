@@ -41,7 +41,7 @@ var app = {
     }
 };
     
-setInterval(getPosts,10000);
+// setInterval(getPosts,10000);
 
 // $('.mnetwork').click(function(){
 //     if(!(localStorage.getItem("mnetwork") == 'false' )){
