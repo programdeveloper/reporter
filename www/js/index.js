@@ -332,7 +332,7 @@ function deleteM( test){
     $('#delete'+test).popup("close");
 }
 
-$("#homeLogo , .ui-icon-home").click(function(){
+$("#homeLogo , .ui-icon-home, .homehref").click(function(){
     $("#nav-panel").panel('close');
     getPosts();
     // app.initialize();
