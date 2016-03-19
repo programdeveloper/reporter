@@ -66,7 +66,7 @@ $('.record').click(function(){
             size = mediaFiles[i].size;
             size = (size/1024/1024).toFixed(2);
             
-            $("#size").html("აპლიკაციის საშუალებით შესაძლებალია აიტვირთოს მაქსიმუმ 1 GB მოცულობის ვიდეო. თვენი ვიდოეს მოულობაა " + size + " MB");
+            $("#size").html("აპლიკაციის საშუალებით შესაძლებალია აიტვირთოს მაქსიმუმ 1 GB მოცულობის ვიდეო. თვენი ვიდოეს მოცულობაა " + size + " MB");
             if(!(localStorage.getItem("fullname") === null )){
                 $('#reporter').val(localStorage.getItem("fullname"));
             }
@@ -201,11 +201,11 @@ function showGallery(){
 
     function onPhotoURISuccess(imageURI) {
         path = imageURI;
-        console.log(imageURI);
+        // console.log(imageURI);
         window.resolveLocalFileSystemURL(imageURI, function(fileEntry) {
             fileEntry.file(function(fileObj) {
                 size = (fileObj.size/1024/1024).toFixed(2);
-                $("#size").html("აპლიკაციის საშუალებით შესაძლებალია აიტვირთოს მაქსიმუმ 1 GB მოცულობის ვიდეო. თვენი ვიდოეს მოულობაა " + size + " MB");
+                $("#size").html("აპლიკაციის საშუალებით შესაძლებალია აიტვირთოს მაქსიმუმ 1 GB მოცულობის ვიდეო. თვენი ვიდოეს მოცულობაა " + size + " MB");
             });
         });
         // console.log(imageURI);
