@@ -25,17 +25,17 @@ var app = {
         // if(localStorage.getItem("mnetwork") === null){
         //     localStorage.setItem('mnetwork','false');
         // }
-
         // if(localStorage.getItem("mnetwork") == 'true'){
         //     $(".mnetwork").attr('checked',true);
         // }
 
-        pictureSource = navigator.camera.PictureSourceType;
-        destinationType = navigator.camera.DestinationType;
-        mediaType = navigator.camera.MediaType;
+        //pictureSource = navigator.camera.PictureSourceType;
+        //destinationType = navigator.camera.DestinationType;
+        //mediaType = navigator.camera.MediaType;
 
         getPosts();
     },
+
     backKeyDown: function(){
         navigator.app.exitApp();
     }
@@ -99,6 +99,7 @@ function sendReport(){
     // if((localStorage.getItem("mnetwork") == 'false'  && navigator.connection.type == 'wifi') || (localStorage.getItem("mnetwork") == 'true'  && navigator.connection.type != 'wifi') ){
        
     $('#loadingImg').css('display','block');
+
     var ft = new FileTransfer(),
     name = reportName;
     if(fullname && title && phone && email){
@@ -193,9 +194,9 @@ function SaveInfo(){
 function showGallery(){
 
     navigator.camera.getPicture(onPhotoURISuccess, onFail, {
-        destinationType: destinationType.FILE_URI,
-        mediaType: mediaType.VIDEO,
-        sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM
+        destinationType: navigator.camera.DestinationType.FILE_URI,
+        sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY, 
+        mediaType: mediaType.VIDEO
     });
 
     function onPhotoURISuccess(imageURI) {
