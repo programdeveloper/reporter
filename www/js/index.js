@@ -29,9 +29,9 @@ var app = {
         //     $(".mnetwork").attr('checked',true);
         // }
 
-        //pictureSource = navigator.camera.PictureSourceType;
-        //destinationType = navigator.camera.DestinationType;
-        //mediaType = navigator.camera.MediaType;
+        pictureSource = navigator.camera.PictureSourceType;
+        destinationType = navigator.camera.DestinationType;
+        mediaType = navigator.camera.MediaType;
 
         getPosts();
     },
@@ -98,10 +98,27 @@ function sendReport(){
 
     // if((localStorage.getItem("mnetwork") == 'false'  && navigator.connection.type == 'wifi') || (localStorage.getItem("mnetwork") == 'true'  && navigator.connection.type != 'wifi') ){
        
-    $('#loadingImg').css('display','block');
-
+    // $('#loadingImg').css('display','block');
+    var progress = $("#container").Progress({
+        percent: 0,
+        width: 350,
+        height: 40,
+        fontSize: 16
+    });
+    $.mobile.changePage('#sendProgress',{reverse:false,transition:"slide"});
+    
     var ft = new FileTransfer(),
     name = reportName;
+
+    ft.onprogress = function(progressEvent) {
+        if (progressEvent.lengthComputable) {
+            progress.percent(Math.ceil((progressEvent.loaded / progressEvent.total)*100));
+             console.log(Math.ceil((progressEvent.loaded / progressEvent.total)*100));
+        } else {
+          console.log('else statement');
+        }
+    };
+
     if(fullname && title && phone && email){
         ft.upload(
         path,
