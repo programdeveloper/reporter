@@ -59,3 +59,46 @@ body { font-family: 'Ingiri'; }
 .custom-about h1 { font-family: "Nino"; letter-spacing: 2px; font-size: 20px; text-align: center; }
 .custom-about p { line-height: 1.4!important; text-align: justify; padding: 0 20px; color: #333!important; }
 .homehref{text-decoration: none; color: white !important;}
+
+/*progressbar*/
+progress {
+	width: 250px;
+	height: 14px;
+
+	/* Important Thing */
+	-webkit-appearance: none;
+	border: none;
+}
+progress::-webkit-progress-bar {
+	background: black;
+	border-radius: 50px;
+	padding: 2px;
+	box-shadow: 0 1px 0px 0 #e93939;
+}
+progress::-webkit-progress-value {
+	border-radius: 50px;
+	box-shadow: inset 0 1px 1px 0 #e93939;
+	background:
+		-webkit-linear-gradient(45deg, transparent, transparent 33%, #e93939 33%, rgba(0, 0, 0, 0.1) 66%, transparent 66%),
+		-webkit-linear-gradient(top, #e93939, #e93939),
+		-webkit-linear-gradient(left, #e93939, #e93939);
+	
+	/* Looks great, now animating it */
+	background-size: 25px 14px, 100% 100%, 100% 100%;
+	-webkit-animation: move 5s linear 0 infinite;
+}
+.progressval{
+  	vertical-align: middle;
+    font-size: 15px;
+    color: #e93939;
+    margin-left: 5px;
+    position: relative;
+    top: 2px;
+}
+.progresscenter{
+	margin: 0 auto;
+    display: table;
+}
+.progressTitle{
+	color: #e93939;
+}

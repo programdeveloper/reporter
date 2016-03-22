@@ -3,6 +3,7 @@ var reportName;
 var pictureSource; 
 var destinationType; 
 var mediaType;
+var ft;
 var app = {
     initialize: function() {
         this.bindEvents();
@@ -22,16 +23,10 @@ var app = {
             $("#email").val(localStorage.getItem("email"));                   
         }
 
-        // if(localStorage.getItem("mnetwork") === null){
-        //     localStorage.setItem('mnetwork','false');
-        // }
-        // if(localStorage.getItem("mnetwork") == 'true'){
-        //     $(".mnetwork").attr('checked',true);
-        // }
-
         pictureSource = navigator.camera.PictureSourceType;
         destinationType = navigator.camera.DestinationType;
         mediaType = navigator.camera.MediaType;
+
 
         getPosts();
     },
@@ -40,21 +35,7 @@ var app = {
         navigator.app.exitApp();
     }
 };
-    
-// setInterval(getPosts,10000);
 
-// $('.mnetwork').click(function(){
-//     if(!(localStorage.getItem("mnetwork") == 'false' )){
-//         localStorage.setItem("mnetwork",'false');
-//         $(".mnetwork").attr('checked',false);
-//     }
-//     else{
-//         localStorage.setItem("mnetwork",'true');
-//         $(".mnetwork").attr('checked',true);
-//     }
-
-//     console.log(localStorage.getItem("mnetwork"));
-// });
 
 $('.record').click(function(){
     // capture callback
@@ -96,30 +77,26 @@ function sendReport(){
     localStorage.setItem("phone",phone);
     localStorage.setItem("email",email);
 
-    // if((localStorage.getItem("mnetwork") == 'false'  && navigator.connection.type == 'wifi') || (localStorage.getItem("mnetwork") == 'true'  && navigator.connection.type != 'wifi') ){
-       
-    // $('#loadingImg').css('display','block');
-    var progress = $("#container").Progress({
-        percent: 0,
-        width: 350,
-        height: 40,
-        fontSize: 16
-    });
-    $.mobile.changePage('#sendProgress',{reverse:false,transition:"slide"});
     
-    var ft = new FileTransfer(),
+   
+    
+    ft = new FileTransfer(),
     name = reportName;
 
-    ft.onprogress = function(progressEvent) {
-        if (progressEvent.lengthComputable) {
-            progress.percent(Math.ceil((progressEvent.loaded / progressEvent.total)*100));
-             console.log(Math.ceil((progressEvent.loaded / progressEvent.total)*100));
-        } else {
-          console.log('else statement');
-        }
-    };
 
     if(fullname && title && phone && email){
+        $.mobile.changePage('#sendProgress',{reverse:false,transition:"slide"});
+        $(".progressTitle").text(title);
+        ft.onprogress = function(progressEvent) {
+            if (progressEvent.lengthComputable) {
+                $('.progress').val((progressEvent.loaded / progressEvent.total)*100);
+                $('.progressval').text(Math.floor((progressEvent.loaded / progressEvent.total)*100) + "%");
+                
+            } else {
+                console.log('else statement');
+            }
+        };
+
         ft.upload(
         path,
         "http://stunettv.ge/admin/reporter/uploadfile",
@@ -139,19 +116,20 @@ function sendReport(){
                     thumb : 'post.png'
                 }),
                 success: function(data) {
-                    console.log('success adding query');
+                    //console.log('success adding query');
                 }
             });     
             
             $('#loadingImg').css('display','none');
             $.mobile.changePage('#sendsuccess',{reverse:false,transition: "slide"});
-            // var succText = "<center> <br> რეპორტაჟი გაგზავნილია! <br><br> მისი პუბლიკაციის ან არა პუბლიკაციის შემთხვევაში თქვენ მიიღებთ შეტყობინებას. <br><br> Stunettv.Ge-ს გუნდი</center>";
-            // $('#succText').html(succText);
+            
             setInterval(function(){
                 document.location = "index.html";
             },10000);
         },
         function(error) {
+            ft.abort(win, null);
+            // console.log(error.code);
             if(error.code==3){
                 navigator.notification.alert(
                     'გთხოვთ ჩართოთ ინტერნეტი და სცადოთ თავიდან.',  // message
@@ -160,12 +138,18 @@ function sendReport(){
                     'დახურვა'                  // buttonName
                 );
             }
+            if(error.code== 4){
+                $.mobile.changePage('#sendReport',{reverse:false,transition: "slide"});
+                return;
+            }
             $('#loadingImg').css('display','none');
+
             $.mobile.changePage('#senderror',{reverse:false,transition: "slide"});
+
             setInterval(function(){
                 document.location = "index.html";
             },10000);
-             // alert('Error uploading file ' + path + ': with Error ' + error.code);
+            
         },
         { fileName: name, mimeType: 'video/mp4', chunkedMode: true });
     }
@@ -177,21 +161,22 @@ function sendReport(){
             'დახურვა'                  // buttonName
         );
         $('#loadingImg').css('display','none');
+        
     }
     
-    // }
-    // else{
-    //     navigator.notification.alert(
-    //         'მობილური ინტერნეტით ატვირთვა შეზღუდულია. გთხოვთ ჩართოთ WiFi.',  // message
-    //         null,         // callback
-    //         'შეცდომა!!!',            // title
-    //         'დახურვა'                  // buttonName
-    //     ); 
-    // }
+}
+function cancelUpload(){
+    ft.abort(null, null);
 }
 
+function win(){
+  $.mobile.back();
+}
+function fail(){
+    alert("something");
+}
 function SaveInfo(){
-    // console.log('clicked');
+    
     var fullname = $("#fullname").val();
     var phone  = $("#phone").val();
     var email  = $("#email").val();
@@ -201,10 +186,10 @@ function SaveInfo(){
     localStorage.setItem("email",email);
 
     navigator.notification.alert(
-        'თქვენი მონაცემები წარმატებით შეინახა',  // message
-        null,         // callback
-        'შეტყობინება',            // title
-        'დახურვა'                  // buttonName
+        'თქვენი მონაცემები წარმატებით შეინახა', // message
+        null,                                   // callback
+        'შეტყობინება',                          // title
+        'დახურვა'                               // buttonName
     );
 }
 
@@ -218,19 +203,16 @@ function showGallery(){
 
     function onPhotoURISuccess(imageURI) {
         path = imageURI;
-        // console.log(imageURI);
+    
         window.resolveLocalFileSystemURL(imageURI, function(fileEntry) {
             fileEntry.file(function(fileObj) {
                 size = (fileObj.size/1024/1024).toFixed(2);
                 $("#size").html("აპლიკაციის საშუალებით შესაძლებალია აიტვირთოს მაქსიმუმ 1 GB მოცულობის ვიდეო. თვენი ვიდოეს მოცულობაა " + size + " MB");
             });
         });
-        // console.log(imageURI);
+        
         reportName =  Math.floor((Math.random() * 100000) + 1) + ".mp4";
-        // window.resolveLocalFileSystemURL(imageURI, function(entry){
-            // }, function(e){
-                // alert(e);/
-            // }); 
+        
 
         if(!(localStorage.getItem("fullname") === null )){
             $('#reporter').val(localStorage.getItem("fullname"));
@@ -245,6 +227,7 @@ function showGallery(){
     }
     function onFail(message) {
          console.log('Failed because: ' + message);
+         ft.abort(win, null);
     }
 }
 
@@ -312,17 +295,6 @@ function getPosts(){
             });  
         }
          $('.posts').html(html).enhanceWithin();
-            // $(document).on('click','.post-action-dot-box',function(){    
-            //     $(this).parent().next('.post-caption').fadeToggle("slow", function() {
-            //         $(this).removeClass("hide");
-            //     });
-            // });
-
-            // $(document).on('click','.closecaption',function(){
-            //     $(this).parent().fadeOut("slow", function() {
-            //         $(this).addClass("hide");
-            //     });
-            // });
         },
         error: function(e,b,k) {
             var html = "<center><p style='margin-top:10px;'>გაგზავნილი რეპორტაჟების სანახავად გთხოვთ ჩართოთ ინტერნეტი.</p></center>";
@@ -344,7 +316,7 @@ function deleteM( test){
             getPosts();
         },
         error: function(d,b,a){
-            console.log('error occurred while deleting');
+            //console.log('error occurred while deleting');
         }
     });
     $('#delete'+test).popup("close");
@@ -353,5 +325,4 @@ function deleteM( test){
 $("#homeLogo , .ui-icon-home, .homehref").click(function(){
     $("#nav-panel").panel('close');
     getPosts();
-    // app.initialize();
 });
