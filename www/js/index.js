@@ -170,7 +170,7 @@ function cancelUpload(){
 }
 
 function win(){
-  $.mobile.back();
+  $.mobile.changePage('#sendReport',{reverse:false,transition: "slide"});
 }
 function fail(){
     alert("something");
